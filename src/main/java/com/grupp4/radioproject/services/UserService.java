@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class UserService {
 
@@ -28,5 +31,25 @@ public class UserService {
         return detailsService.registerUser(user);
     }
 
+    public List<User> getAll() {
+        return userRepo.findAll(); // SELECT * FROM heroes
+    }
+
+    public User getById(long id) {
+        Optional<User> user = userRepo.findById(id);
+
+        return user.orElse(null);
+    }
+
+    public void deleteUser(long id) {
+        userRepo.deleteById(id);
+    }
+
+    public void updateById(long id, User user) {
+        if(userRepo.existsById(id)) {
+            user.setId(id);
+            userRepo.save(user);
+        }
+    }
 }
 
