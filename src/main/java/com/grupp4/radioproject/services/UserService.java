@@ -46,8 +46,11 @@ public class UserService {
     }
 
     public void updateById(long id, User user) {
-        if(userRepo.existsById(id)) {
+        User userFromDB = getById(id);
+        if(userFromDB != null) {
             user.setId(id);
+            // don't update password
+            user.setPassword(userFromDB.getPassword());
             userRepo.save(user);
         }
     }
