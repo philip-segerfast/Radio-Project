@@ -20,6 +20,9 @@ public class UserService {
     @Autowired
     private UserRepo userRepo;
 
+    /**
+     * @return The logged-in user
+     */
     public User whoAmI() {
         // SecurityContextHolder.getContext() taps into the current session
         // getAuthentication() returns the current logged in user
