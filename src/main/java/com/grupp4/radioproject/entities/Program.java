@@ -1,4 +1,5 @@
 package com.grupp4.radioproject.entities;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 
@@ -6,13 +7,14 @@ import javax.persistence.*;
 @Table(name = "programs")
 @JsonIgnoreProperties(value = {"name", "channel", "description"}, allowGetters = true)
 public class Program {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long programId;
 
     private String name;
+
     @ManyToOne
-    @JoinColumn(name="channelId")
     private Channel channel;
 
     private String description;
@@ -36,6 +38,7 @@ public class Program {
     public String getName() {
         return name;
     }
+    @JsonIgnore // hämta ut från en tabell = ignorera
     public void setName(String name) {
         this.name = name;
     }

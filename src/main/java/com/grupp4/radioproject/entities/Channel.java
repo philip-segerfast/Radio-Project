@@ -14,11 +14,9 @@ public class Channel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long channelId;
 
-    @JsonIgnore
     private String channelName;
 
     @OneToMany(mappedBy = "channel")
-    @JsonIgnore
     private List<Program> programs;
 
     public Channel(long channelId, String channelName) {
