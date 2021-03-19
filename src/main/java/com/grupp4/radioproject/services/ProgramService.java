@@ -16,13 +16,14 @@ public class ProgramService {
 
     public static final int DEFAULT_PAGE_SIZE = 10;
 
+    /**
+     * Contains all programs in the Api (with fields limited to the contents in the Program class)
+     */
     public static List<Program> allPrograms;
 
     @PostConstruct
     private void loadProgramsFromApi() {
         allPrograms = getAllPrograms();
-
-        TimerTask reloadPrograms =
     }
 
     /**
@@ -67,7 +68,7 @@ public class ProgramService {
      */
     private List<Program> getAllPrograms() {
         RestTemplate template = new RestTemplate();
-        String URL = "http://api.sr.se/api/v2/programs?format=json?pagination=false";
+        String URL = "http://api.sr.se/api/v2/programs?format=json";
         Map response = template.getForObject(URL, Map.class);
 
         List<Map> programsMap = (List<Map>) response.get("programs");
