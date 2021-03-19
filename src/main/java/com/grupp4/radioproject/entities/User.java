@@ -1,11 +1,9 @@
 package com.grupp4.radioproject.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -16,15 +14,6 @@ public class User {
     private String username;
     private String password;
 
-    @ManyToMany
-    @JoinTable(
-            name = "friends",
-            joinColumns = @JoinColumn(name = "user1_id"),
-            inverseJoinColumns = @JoinColumn(name = "user2_id")
-    )
-    @JsonIgnoreProperties("friends")
-    private List<User> friends;
-
     public User() {}
 
     public User(String username) {
@@ -34,14 +23,6 @@ public class User {
     public User(String username, String password) {
         this.username = username;
         this.password = password;
-    }
-
-    public List<User> getFriends() {
-        return friends;
-    }
-
-    public void setFriends(List<User> friends) {
-        this.friends = friends;
     }
 
     /**
