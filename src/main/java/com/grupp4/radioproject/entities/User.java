@@ -19,8 +19,8 @@ public class User {
     @ManyToMany
     @JoinTable(
             name = "friends",
-            joinColumns = @JoinColumn(name = "user1_id"),
-            inverseJoinColumns = @JoinColumn(name = "user2_id")
+            joinColumns = @JoinColumn(name = "target_user_id"),
+            inverseJoinColumns = @JoinColumn(name = "destination_user_id")
     )
     @JsonIgnoreProperties("friends")
     private List<User> friends;

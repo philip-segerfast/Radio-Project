@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,12 +48,41 @@ public class UserService {
 
     public void updateById(long id, User user) {
         User userFromDB = getById(id);
-        if(userFromDB != null) {
+        if (userFromDB != null) {
             user.setId(id);
             // don't update password
             user.setPassword(userFromDB.getPassword());
             userRepo.save(user);
         }
     }
+
+
+
+    public void addFriend(long id) {
+        User friendToAdd = userRepo.findById(id).orElse(null);
+        if (friendToAdd!=null){
+            User loggedUser = whoAmI();
+            loggedUser.getFriends().add(friendToAdd);
+            friendToAdd.getFriends().add(loggedUser);
+            userRepo.save(loggedUser);
+            userRepo.save(friendToAdd);
+
+        }
+
+    }
+
+    public void deleteFriend(long id) {
+        User friendToDelete = userRepo.findById(id).orElse(null);
+        if (friendToDelete!=null){
+            User loggedUser = whoAmI();
+            loggedUser.getFriends().remove(friendToDelete);
+            friendToDelete.getFriends().remove(loggedUser);
+            userRepo.save(loggedUser);
+            userRepo.save(friendToDelete);
+
+        }
+
+    }
 }
+
 
