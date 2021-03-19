@@ -4,8 +4,10 @@ import com.grupp4.radioproject.configurations.MyUserDetailsService;
 import com.grupp4.radioproject.entities.User;
 import com.grupp4.radioproject.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.file.Path;
 import java.util.List;
 
 @RestController
@@ -46,5 +48,12 @@ public class UserController {
     public void updateUser(@PathVariable long id, @RequestBody User user) {
         userService.updateById(id, user);
     }
+
+   @PostMapping("rest/user/add-friend/{id}")
+    public void addFriend(@PathVariable long id){
+        userService.addFriend(id);
+    }
+    @DeleteMapping("rest/user/delete-friend/{id}")
+    public void deleteFriend(@PathVariable long id){userService.deleteFriend(id);}
 }
 
