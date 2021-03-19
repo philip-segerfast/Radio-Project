@@ -2,6 +2,7 @@ package com.grupp4.radioproject.services;
 
 import com.grupp4.radioproject.entities.Channel;
 import com.grupp4.radioproject.entities.Program;
+import com.grupp4.radioproject.utils.ConsoleColor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -9,7 +10,8 @@ import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.TimerTask;
+
+import static com.grupp4.radioproject.utils.PrintUtils.printlnc;
 
 @Service
 public class ProgramService {
@@ -24,6 +26,7 @@ public class ProgramService {
     @PostConstruct
     private void loadProgramsFromApi() {
         allPrograms = getAllPrograms();
+        printlnc("Retrieved: " + allPrograms.size() + " programs from SR API", ConsoleColor.GREEN);
     }
 
     /**
@@ -68,7 +71,7 @@ public class ProgramService {
      */
     private List<Program> getAllPrograms() {
         RestTemplate template = new RestTemplate();
-        String URL = "http://api.sr.se/api/v2/programs?format=json";
+        String URL = "http://api.sr.se/api/v2/programs?format=json&pagination=false";
         Map response = template.getForObject(URL, Map.class);
 
         List<Map> programsMap = (List<Map>) response.get("programs");

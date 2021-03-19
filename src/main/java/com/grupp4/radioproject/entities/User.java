@@ -42,6 +42,8 @@ public class User {
 
     public void setFriends(List<User> friends) {
         this.friends = friends;
+
+
     }
 
     /**

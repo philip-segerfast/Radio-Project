@@ -18,7 +18,6 @@ public class ProgramController {
     @GetMapping("/rest/programs/{page}")
     public List<Program> getAllPrograms(@PathVariable int page) {
         var programs = programService.getAllProgramsAtPage(page);
-        System.out.println(programs);
         return programs;
     }
 
