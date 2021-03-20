@@ -7,9 +7,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.PostConstruct;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import static com.grupp4.radioproject.utils.PrintUtils.printlnc;
 
@@ -25,8 +26,10 @@ public class ProgramService {
 
     @PostConstruct
     private void loadProgramsFromApi() {
-        allPrograms = getAllPrograms();
-        printlnc("Retrieved: " + allPrograms.size() + " programs from SR API", ConsoleColor.GREEN);
+        // Creates and starts a timer that will retrieve all programs from the Radio API once every 10 minutes.
+        Executors.newSingleThreadScheduledExecutor().scheduleWithFixedDelay(() -> {
+            allPrograms = getAllPrograms();
+        }, 0, 10, TimeUnit.MINUTES);
     }
 
     /**
@@ -95,6 +98,7 @@ public class ProgramService {
             programs.add(program);
         }
 
+        printlnc("Retrieved: " + programs.size() + " programs from SR API", ConsoleColor.GREEN);
         return programs;
     }
 
