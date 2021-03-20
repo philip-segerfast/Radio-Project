@@ -11,6 +11,7 @@ import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 import static com.grupp4.radioproject.utils.PrintUtils.printlnc;
 
@@ -33,8 +34,22 @@ public class ProgramService {
     }
 
     /**
+     * Search for a program based on name and description. Case insensitive.
+     * @param phrase Search phrase
+     * @return List of programs matching search phrase
+     */
+    public List<Program> searchPrograms(String phrase) {
+        return allPrograms.stream()
+                // Only return programs that contains the search phrase in name or description
+                .filter(program -> program.getName().toLowerCase().contains(phrase.toLowerCase())
+                        ||
+                        program.getDescription().toLowerCase().contains(phrase.toLowerCase()))
+                .collect(Collectors.toList());
+    }
+
+    /**
      * Gets a list of programs from the SR API
-     * @param pageNumber Which page to get. Contains 10 elements each by default.
+     * @param pageNumber Which page to get. Contains 10 elements each by default
      * @return A list of programs from the SR API
      */
     public List<Program> getAllProgramsAtPage(int pageNumber) {

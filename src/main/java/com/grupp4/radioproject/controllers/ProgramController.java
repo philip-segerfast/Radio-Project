@@ -7,7 +7,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 public class ProgramController {
@@ -17,8 +20,12 @@ public class ProgramController {
 
     @GetMapping("/rest/programs/{page}")
     public List<Program> getAllPrograms(@PathVariable int page) {
-        var programs = programService.getAllProgramsAtPage(page);
-        return programs;
+        return programService.getAllProgramsAtPage(page);
+    }
+
+    @GetMapping("/rest/programs/search/{phrase}")
+    public List<Program> getSearchedPrograms(@PathVariable String phrase) {
+        return programService.searchPrograms(phrase);
     }
 
 }

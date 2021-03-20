@@ -1,6 +1,8 @@
 package com.grupp4.radioproject.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 
 @Entity
@@ -38,7 +40,6 @@ public class Program {
     public String getName() {
         return name;
     }
-    @JsonIgnore // hämta ut från en tabell = ignorera
     public void setName(String name) {
         this.name = name;
     }
