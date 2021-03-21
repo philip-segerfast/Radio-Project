@@ -2,6 +2,7 @@ package com.grupp4.radioproject.services;
 
 import com.grupp4.radioproject.entities.Channel;
 import com.grupp4.radioproject.entities.Program;
+import com.grupp4.radioproject.entities.ProgramCategory;
 import com.grupp4.radioproject.utils.ConsoleColor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -98,5 +99,38 @@ public class ProgramService {
         return programs;
     }
 
+    public List<Program> getProgramsByCategory(long id) {
+        RestTemplate template = new RestTemplate();
+        String URL = "http://api.sr.se/api/v2/programs/index?format=json&pagination=false&programcategoryid=";
+        Map response = template.getForObject(URL + id, Map.class);
+
+        List<Map> categoriesMap = (List<Map>) response.get("programs");
+        List<Program> programs = new ArrayList<>();
+
+        if(categoriesMap == null)
+            return null;
+
+        for(Map categoryMap : categoriesMap) {
+            int programId = Integer.parseInt(categoryMap.get("id").toString());
+            String programName = categoryMap.get("name").toString();
+            String programDescription = categoryMap.get("description").toString();
+
+            Map channelMap = (Map) categoryMap.get("channel");
+            int channelId = Integer.parseInt(channelMap.get("id").toString());
+            String channelName = channelMap.get("name").toString();
+
+            Map programCategoryMap = (Map) categoryMap.get("programcategory");
+            int categoryId = Integer.parseInt(programCategoryMap.get("id").toString());
+            String categoryName = programCategoryMap.get("name").toString();
+
+            Channel channel = new Channel(channelId, channelName);
+            ProgramCategory programCategory = new ProgramCategory(categoryId, categoryName);
+            Program program = new Program(programId, programName, channel, programDescription, programCategory);
+
+            programs.add(program);
+        }
+
+        return programs;
+    }
 
 }

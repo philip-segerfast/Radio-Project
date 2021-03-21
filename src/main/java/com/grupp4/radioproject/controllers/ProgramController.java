@@ -1,6 +1,7 @@
 package com.grupp4.radioproject.controllers;
 
 import com.grupp4.radioproject.entities.Program;
+import com.grupp4.radioproject.entities.ProgramCategory;
 import com.grupp4.radioproject.services.ProgramService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,11 @@ public class ProgramController {
     public List<Program> getAllPrograms(@PathVariable int page) {
         var programs = programService.getAllProgramsAtPage(page);
         return programs;
+    }
+
+    @GetMapping("/rest/programs/programcategory/{id}")
+    public List<Program> getAllProgramsByCategory(@PathVariable long id) {
+        return programService.getProgramsByCategory(id);
     }
 
 }

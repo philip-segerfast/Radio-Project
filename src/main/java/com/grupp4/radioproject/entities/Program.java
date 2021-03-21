@@ -19,6 +19,9 @@ public class Program {
 
     private String description;
 
+    @ManyToOne
+    private ProgramCategory programCategory;
+
     private Program() {}
 
     public Program(long id, String name, Channel channel, String description) {
@@ -26,6 +29,14 @@ public class Program {
         this.name = name;
         this.channel = channel;
         this.description = description;
+    }
+
+    public Program(long programId, String name, Channel channel, String description, ProgramCategory programCategory) {
+        this.programId = programId;
+        this.name = name;
+        this.channel = channel;
+        this.description = description;
+        this.programCategory = programCategory;
     }
 
     public long getProgramId() {
@@ -57,6 +68,14 @@ public class Program {
         this.description = description;
     }
 
+    public ProgramCategory getProgramCategory() {
+        return programCategory;
+    }
+
+    public void setProgramCategory(ProgramCategory programCategory) {
+        this.programCategory = programCategory;
+    }
+
     @Override
     public String toString() {
         return "Program{" +
@@ -64,6 +83,7 @@ public class Program {
                 ", name='" + name + '\'' +
                 ", channel=" + channel +
                 ", description='" + description + '\'' +
+                ", programCategory=" + programCategory +
                 '}';
     }
 }
