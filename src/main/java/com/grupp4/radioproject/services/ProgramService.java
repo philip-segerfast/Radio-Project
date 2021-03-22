@@ -3,6 +3,7 @@ package com.grupp4.radioproject.services;
 import com.grupp4.radioproject.entities.Channel;
 import com.grupp4.radioproject.entities.Program;
 import com.grupp4.radioproject.entities.ProgramCategory;
+import com.grupp4.radioproject.entities.Schedule;
 import com.grupp4.radioproject.utils.ConsoleColor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -10,7 +11,6 @@ import org.springframework.web.client.RestTemplate;
 import javax.annotation.PostConstruct;
 import java.util.*;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
@@ -152,4 +152,41 @@ public class ProgramService {
         return programs;
     }
 
+    public List<Schedule> getScheduleByChannel(long id) {
+        RestTemplate template = new RestTemplate();
+        String URL = "http://api.sr.se/api/v2/scheduledepisodes?pagination=false&format=json&channelid=";
+        Map response = template.getForObject(URL + id, Map.class);
+
+        List<Map> schedulesMap = (List<Map>) response.get("schedule");
+        List<Schedule> schedules = new ArrayList<>();
+
+        if(schedulesMap == null) return null;
+
+        for(Map scheduleMap : schedulesMap) {
+            int episodeId = 0;
+            if(scheduleMap.get("episodeid") != null) {
+                episodeId = Integer.parseInt(scheduleMap.get("episodeid").toString());
+            }
+            String title = scheduleMap.get("title").toString();
+            String description = scheduleMap.get("description").toString();
+
+            Map channelMap = (Map) scheduleMap.get("channel");
+            int channelId = Integer.parseInt(channelMap.get("id").toString());
+            String channelName = channelMap.get("name").toString();
+
+            Map programMap = (Map) scheduleMap.get("program");
+            int programId = Integer.parseInt(programMap.get("id").toString());
+            String programName = null;
+            if(programMap.get("name") != null) {
+                programName = programMap.get("name").toString();
+            }
+
+            Channel channel = new Channel(channelId, channelName);
+            Program program = new Program(programId, programName);
+            Schedule schedule = new Schedule(episodeId, title, description, channel, program);
+
+            schedules.add(schedule);
+        }
+        return schedules;
+    }
 }
