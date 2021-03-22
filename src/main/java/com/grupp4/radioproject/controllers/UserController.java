@@ -45,15 +45,18 @@ public class UserController {
     }
 
     @PutMapping("/rest/users/{id}")
-    public void updateUser(@PathVariable long id, @RequestBody User user) {
-        userService.updateById(id, user);
+    public User updateUser(@PathVariable long id, @RequestBody User user) {
+        return userService.updateById(id, user);
     }
 
-   @PostMapping("rest/user/add-friend/{id}")
-    public void addFriend(@PathVariable long id){
-        userService.addFriend(id);
+    @PostMapping("rest/user/add-friend/{id}")
+    public User addFriend(@PathVariable long id){
+        return userService.addFriend(id);
     }
+
     @DeleteMapping("rest/user/delete-friend/{id}")
-    public void deleteFriend(@PathVariable long id){userService.deleteFriend(id);}
+    public User deleteFriend(@PathVariable long id) {
+        return userService.deleteFriend(id);
+    }
 }
 

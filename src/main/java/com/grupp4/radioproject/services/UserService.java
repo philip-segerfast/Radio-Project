@@ -49,19 +49,18 @@ public class UserService {
         userRepo.deleteById(id);
     }
 
-    public void updateById(long id, User user) {
+    public User updateById(long id, User user) {
         User userFromDB = getById(id);
         if (userFromDB != null) {
             user.setId(id);
             // don't update password
             user.setPassword(userFromDB.getPassword());
-            userRepo.save(user);
+            return userRepo.save(user);
         }
+        return null;
     }
 
-
-
-    public void addFriend(long id) {
+    public User addFriend(long id) {
         User friendToAdd = userRepo.findById(id).orElse(null);
         if (friendToAdd!=null){
             User loggedUser = whoAmI();
@@ -69,12 +68,12 @@ public class UserService {
             friendToAdd.getFriends().add(loggedUser);
             userRepo.save(loggedUser);
             userRepo.save(friendToAdd);
-
+            return loggedUser;
         }
-
+        return null;
     }
 
-    public void deleteFriend(long id) {
+    public User deleteFriend(long id) {
         User friendToDelete = userRepo.findById(id).orElse(null);
         if (friendToDelete!=null){
             User loggedUser = whoAmI();
@@ -82,9 +81,9 @@ public class UserService {
             friendToDelete.getFriends().remove(loggedUser);
             userRepo.save(loggedUser);
             userRepo.save(friendToDelete);
-
+            return loggedUser;
         }
-
+        return null;
     }
 }
 

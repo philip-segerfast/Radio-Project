@@ -85,7 +85,7 @@ public class ProgramService {
     /**
      * Get's exactly ALL programs there is in the API.
      * Don't call outside this method.
-     * To access all programs, use the static variable all.
+     * To access all programs, use the static variable allPrograms.
      * @return All programs in the entire API.
      */
     private List<Program> getAllPrograms() {
@@ -117,6 +117,7 @@ public class ProgramService {
         printlnc("Retrieved: " + programs.size() + " programs from SR API", ConsoleColor.GREEN);
         return programs;
     }
+
     public List<Program> getProgramsByChannel(long id){
         RestTemplate template = new RestTemplate();
         String URL = "http://api.sr.se/api/v2/programs/index?format=json&channelid=";

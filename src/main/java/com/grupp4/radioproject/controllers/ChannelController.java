@@ -19,6 +19,4 @@ public class ChannelController {
         return channelService.getAllChannels();
     }
 
-
-
 }
