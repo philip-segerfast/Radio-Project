@@ -29,6 +29,11 @@ public class Program {
 
     private Program() {}
 
+    public Program(long programId, String name) {
+        this.programId = programId;
+        this.name = name;
+    }
+
     public Program(long id, String name, Channel channel, String description) {
         this.programId = id;
         this.name = name;
@@ -75,7 +80,6 @@ public class Program {
     public ProgramCategory getProgramCategory() {
         return programCategory;
     }
-
     public void setProgramCategory(ProgramCategory programCategory) {
         this.programCategory = programCategory;
     }
