@@ -9,7 +9,7 @@ import javax.persistence.OneToMany;
 
 @Entity
 @JsonIgnoreProperties(value = {"episodeId", "title", "description"}, allowGetters = true)
-public class Schedule {
+public class ScheduleEpisode {
 
     @Id
     private long episodeId;
@@ -22,23 +22,23 @@ public class Schedule {
     @ManyToOne
     Program program;
 
-    public Schedule() {
+    public ScheduleEpisode() {
     }
 
-    public Schedule(String title, String description, Channel channel, Program program) {
+    public ScheduleEpisode(String title, String description, Channel channel, Program program) {
         this.title = title;
         this.description = description;
         this.channel = channel;
         this.program = program;
     }
 
-    public Schedule(long episodeId, String title, String description) {
+    public ScheduleEpisode(long episodeId, String title, String description) {
         this.episodeId = episodeId;
         this.title = title;
         this.description = description;
     }
 
-    public Schedule(long episodeId, String title, String description, Channel channel, Program program) {
+    public ScheduleEpisode(long episodeId, String title, String description, Channel channel, Program program) {
         this.episodeId = episodeId;
         this.title = title;
         this.description = description;

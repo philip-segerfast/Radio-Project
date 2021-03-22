@@ -3,7 +3,7 @@ package com.grupp4.radioproject.services;
 import com.grupp4.radioproject.entities.Channel;
 import com.grupp4.radioproject.entities.Program;
 import com.grupp4.radioproject.entities.ProgramCategory;
-import com.grupp4.radioproject.entities.Schedule;
+import com.grupp4.radioproject.entities.ScheduleEpisode;
 import com.grupp4.radioproject.utils.ConsoleColor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -152,13 +152,13 @@ public class ProgramService {
         return programs;
     }
 
-    public List<Schedule> getScheduleByChannel(long id) {
+    public List<ScheduleEpisode> getScheduleByChannel(long id) {
         RestTemplate template = new RestTemplate();
         String URL = "http://api.sr.se/api/v2/scheduledepisodes?pagination=false&format=json&channelid=";
         Map response = template.getForObject(URL + id, Map.class);
 
         List<Map> schedulesMap = (List<Map>) response.get("schedule");
-        List<Schedule> schedules = new ArrayList<>();
+        List<ScheduleEpisode> scheduleEpisodes = new ArrayList<>();
 
         if(schedulesMap == null) return null;
 
@@ -183,10 +183,10 @@ public class ProgramService {
 
             Channel channel = new Channel(channelId, channelName);
             Program program = new Program(programId, programName);
-            Schedule schedule = new Schedule(episodeId, title, description, channel, program);
+            ScheduleEpisode scheduleEpisode = new ScheduleEpisode(episodeId, title, description, channel, program);
 
-            schedules.add(schedule);
+            scheduleEpisodes.add(scheduleEpisode);
         }
-        return schedules;
+        return scheduleEpisodes;
     }
 }

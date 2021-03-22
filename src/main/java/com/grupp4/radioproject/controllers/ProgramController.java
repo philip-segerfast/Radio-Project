@@ -1,7 +1,7 @@
 package com.grupp4.radioproject.controllers;
 
 import com.grupp4.radioproject.entities.Program;
-import com.grupp4.radioproject.entities.Schedule;
+import com.grupp4.radioproject.entities.ScheduleEpisode;
 import com.grupp4.radioproject.services.ProgramService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,7 +32,7 @@ public class ProgramController {
     }
 
     @GetMapping("/rest/programs/tableau/{id}")
-    public List<Schedule> getScheduleByChannel(@PathVariable long id) {
+    public List<ScheduleEpisode> getScheduleByChannel(@PathVariable long id) {
         return programService.getScheduleByChannel(id);
     }
 
