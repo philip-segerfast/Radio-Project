@@ -16,6 +16,9 @@ public class Program {
 
     private String name;
 
+
+
+
     @ManyToOne
     private Channel channel;
 

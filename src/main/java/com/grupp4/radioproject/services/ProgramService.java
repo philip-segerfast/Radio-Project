@@ -117,6 +117,34 @@ public class ProgramService {
         printlnc("Retrieved: " + programs.size() + " programs from SR API", ConsoleColor.GREEN);
         return programs;
     }
+    public List<Program> getProgramsByChannel(long id){
+        RestTemplate template = new RestTemplate();
+        String URL = "http://api.sr.se/api/v2/programs/index?format=json&channelid=";
+        Map response = template.getForObject(URL + id, Map.class);
+
+        List<Map> programsMap = (List<Map>) response.get("programs");
+        List<Program> programs = new ArrayList<>();
+
+        if(programsMap == null)
+            return null;
+
+        for(Map programMap : programsMap) {
+            int programId = Integer.parseInt(programMap.get("id").toString());
+            String programName = programMap.get("name").toString();
+            String programDescription = programMap.get("description").toString();
+
+            Map channelMap = (Map) programMap.get("channel");
+            int channelId = Integer.parseInt(channelMap.get("id").toString());
+            String channelName = channelMap.get("name").toString();
+
+            Channel channel = new Channel(channelId, channelName);
+            Program program = new Program(programId, programName, channel, programDescription);
+
+            programs.add(program);
+        }
+        return programs;
+    }
+
 
     public List<Program> getProgramsByCategory(long id) {
         RestTemplate template = new RestTemplate();
@@ -153,3 +181,5 @@ public class ProgramService {
     }
 
 }
+
+

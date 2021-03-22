@@ -34,4 +34,9 @@ public class ProgramController {
         return programService.getProgramsByCategory(id);
     }
 
+    @GetMapping("/rest/programs/channel/{id}")
+    public List<Program> getProgramsByChannels(@PathVariable long id){
+        return programService.getProgramsByChannel(id);
+    }
+
 }
