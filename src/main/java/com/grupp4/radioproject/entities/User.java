@@ -25,6 +25,15 @@ public class User {
     @JsonIgnoreProperties("friends")
     private List<User> friends;
 
+    @ManyToMany
+    @JoinTable(
+            name = ("program_favourites"),
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "program_id")
+    )
+    @JsonIgnoreProperties("program_category")
+    private List<Program> programFavourites;
+
     public User() {}
 
     public User(String username) {
@@ -42,8 +51,6 @@ public class User {
 
     public void setFriends(List<User> friends) {
         this.friends = friends;
-
-
     }
 
     /**
@@ -75,6 +82,15 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+
+    public List<Program> getProgramFavourites() {
+        return programFavourites;
+    }
+
+    public void setProgramFavourites(List<Program> programFavourites) {
+        this.programFavourites = programFavourites;
     }
 
     @Override

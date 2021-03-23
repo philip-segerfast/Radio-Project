@@ -1,10 +1,10 @@
 package com.grupp4.radioproject.services;
 
-import com.grupp4.radioproject.entities.Channel;
-import com.grupp4.radioproject.entities.Program;
-import com.grupp4.radioproject.entities.ProgramCategory;
-import com.grupp4.radioproject.entities.ScheduleEpisode;
+import com.grupp4.radioproject.entities.*;
+import com.grupp4.radioproject.repositories.ProgramRepo;
+import com.grupp4.radioproject.repositories.UserRepo;
 import com.grupp4.radioproject.utils.ConsoleColor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -18,6 +18,12 @@ import static com.grupp4.radioproject.utils.PrintUtils.printlnc;
 
 @Service
 public class ProgramService {
+
+    @Autowired
+    private ProgramRepo programRepo;
+
+    @Autowired
+    private UserRepo userRepo;
 
     public static final int DEFAULT_PAGE_SIZE = 10;
 
@@ -218,6 +224,20 @@ public class ProgramService {
         }
         return scheduleEpisodes;
     }
+
+    public Program getProgramById (long id) {
+        for(Program program: allPrograms) {
+            if(program.getProgramId() == id ) {
+                return program;
+            }
+        }
+        return null;
+    }
+
+    public Program registerProgram(Program program) {
+        return programRepo.save(program);
+    }
+
 }
 
 

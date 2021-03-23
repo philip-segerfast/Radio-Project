@@ -1,13 +1,14 @@
 package com.grupp4.radioproject.services;
 
 import com.grupp4.radioproject.configurations.MyUserDetailsService;
+import com.grupp4.radioproject.entities.Program;
 import com.grupp4.radioproject.entities.User;
+import com.grupp4.radioproject.repositories.ProgramRepo;
 import com.grupp4.radioproject.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,6 +20,12 @@ public class UserService {
 
     @Autowired
     private UserRepo userRepo;
+
+    @Autowired
+    private ProgramRepo programRepo;
+
+    @Autowired
+    private ProgramService programService;
 
     /**
      * @return The logged-in user
@@ -62,7 +69,7 @@ public class UserService {
 
     public User addFriend(long id) {
         User friendToAdd = userRepo.findById(id).orElse(null);
-        if (friendToAdd!=null){
+        if (friendToAdd != null) {
             User loggedUser = whoAmI();
             loggedUser.getFriends().add(friendToAdd);
             friendToAdd.getFriends().add(loggedUser);
@@ -75,7 +82,7 @@ public class UserService {
 
     public User deleteFriend(long id) {
         User friendToDelete = userRepo.findById(id).orElse(null);
-        if (friendToDelete!=null){
+        if (friendToDelete != null) {
             User loggedUser = whoAmI();
             loggedUser.getFriends().remove(friendToDelete);
             friendToDelete.getFriends().remove(loggedUser);
@@ -85,6 +92,13 @@ public class UserService {
         }
         return null;
     }
+
+    public User addProgramFavourite(long id) {
+        User loggedUser = whoAmI();
+        Program programFavouriteToAdd = programService.getProgramById(id);
+        programFavouriteToAdd = programRepo.save(programFavouriteToAdd);
+        loggedUser.getProgramFavourites().add(programFavouriteToAdd);
+        return userRepo.save(loggedUser);
+    }
+
 }
-
-
