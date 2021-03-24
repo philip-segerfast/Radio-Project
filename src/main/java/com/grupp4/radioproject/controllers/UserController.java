@@ -47,12 +47,12 @@ public class UserController {
         return userService.updateById(id, user);
     }
 
-    @PostMapping("rest/user/add-friend/{id}")
+    @PostMapping("/rest/user/add-friend/{id}")
     public User addFriend(@PathVariable long id){
         return userService.addFriend(id);
     }
 
-    @DeleteMapping("rest/user/delete-friend/{id}")
+    @DeleteMapping("/rest/user/delete-friend/{id}")
     public User deleteFriend(@PathVariable long id) {
         return userService.deleteFriend(id);
     }
@@ -63,5 +63,10 @@ public class UserController {
         return true;
     }
 
+
+    @GetMapping("/rest/user/friends")
+    public List<User> getFriends() {
+        return userService.getFriends();
+    }
 }
 

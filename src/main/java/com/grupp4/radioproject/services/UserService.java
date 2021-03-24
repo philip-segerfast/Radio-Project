@@ -93,6 +93,12 @@ public class UserService {
         return null;
     }
 
+    public List<User> getFriends() {
+        User loggedUser = whoAmI();
+        return loggedUser.getFriends();
+    }
+}
+
     public void addProgramFavourite(long programId) {
         long loggedUser = whoAmI().getId();
 
