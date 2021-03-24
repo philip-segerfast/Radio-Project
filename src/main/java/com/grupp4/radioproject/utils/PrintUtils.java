@@ -1,6 +1,22 @@
 package com.grupp4.radioproject.utils;
 
+import static com.grupp4.radioproject.utils.ConsoleColor.*;
+
 public class PrintUtils {
+
+    private static final ConsoleColor ERROR_COLOR = WHITE;
+    private static final ConsoleColor ERROR_BG_COLOR = RED_BG;
+    private static final ConsoleColor INFO_COLOR = GREEN;
+    private static final ConsoleColor INFO_BG_COLOR = WHITE_BG;
+    private static final ConsoleColor DEBUG_COLOR = GRAY;
+    private static final ConsoleColor DEBUG_BG_COLOR = YELLOW_BG;
+
+    static {
+        printDebug("This is a debug message!");
+        printError("This is an error message!");
+        printInfo("This is  an info message!");
+    }
+
 
     /**
      * <p>
@@ -19,8 +35,20 @@ public class PrintUtils {
      *     @param str String to print.
      * </p>
      */
-    public static void printlnc(String str, ConsoleColor color) {
-        System.out.println(color + str + ConsoleColor.RESET);
+    public static void printColoredLine(String str, ConsoleColor color) {
+        System.out.println(color + str + RESET);
+    }
+
+    public static void printError(String str) {
+        System.out.println("" + ERROR_BG_COLOR + ERROR_COLOR + " ERROR " + RESET + RED + " " + str + RESET);
+    }
+
+    public static void printInfo(String str) {
+        System.out.println("" + GREEN_BG + WHITE + " INFO " + RESET + GREEN + " " + str);
+    }
+
+    public static void printDebug(String str) {
+        System.out.println("" + DEBUG_BG_COLOR + DEBUG_COLOR + " DEBUG " + RESET + YELLOW + " "  + str);
     }
 
 }

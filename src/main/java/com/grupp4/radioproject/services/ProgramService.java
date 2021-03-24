@@ -14,7 +14,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
-import static com.grupp4.radioproject.utils.PrintUtils.printlnc;
+import static com.grupp4.radioproject.utils.PrintUtils.printColoredLine;
+import static com.grupp4.radioproject.utils.PrintUtils.printInfo;
 
 @Service
 public class ProgramService {
@@ -30,7 +31,9 @@ public class ProgramService {
     private void loadProgramsFromApi() {
         // Creates and starts a timer that will retrieve all programs from the Radio API once every 10 minutes.
         Executors.newSingleThreadScheduledExecutor().scheduleWithFixedDelay(() -> {
-            allPrograms = getAllPrograms();
+            var programs = getAllPrograms();
+            allPrograms = programs;
+            printInfo("Retrieved: " + programs.size() + " programs from SR API");
         }, 0, 10, TimeUnit.MINUTES);
     }
 
@@ -114,7 +117,6 @@ public class ProgramService {
             programs.add(program);
         }
 
-        printlnc("Retrieved: " + programs.size() + " programs from SR API", ConsoleColor.GREEN);
         return programs;
     }
 
