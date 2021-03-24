@@ -9,6 +9,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.PostConstruct;
+import java.time.Instant;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.temporal.ChronoField;
 import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -191,6 +195,14 @@ public class ProgramService {
         List<Map> schedulesMap = (List<Map>) response.get("schedule");
         List<ScheduleEpisode> scheduleEpisodes = new ArrayList<>();
 
+
+        DateTimeFormatter formatter = new DateTimeFormatterBuilder()
+                .appendLiteral("/Date(")
+                .appendValue(ChronoField.INSTANT_SECONDS)
+                .appendValue(ChronoField.MILLI_OF_SECOND, 3)
+                .appendLiteral(")/")
+                .toFormatter();
+
         if(schedulesMap == null) return null;
 
         for(Map scheduleMap : schedulesMap) {
@@ -200,6 +212,11 @@ public class ProgramService {
             }
             String title = scheduleMap.get("title").toString();
             String description = scheduleMap.get("description").toString();
+            String starttimeutc = scheduleMap.get("starttimeutc").toString();
+
+            Instant dateTime = formatter.parse(starttimeutc, Instant::from);
+            String formattedDate = dateTime.toString();
+            starttimeutc = formattedDate.replace("T"," ").replace("Z","");
 
             Map channelMap = (Map) scheduleMap.get("channel");
             int channelId = Integer.parseInt(channelMap.get("id").toString());
@@ -214,7 +231,57 @@ public class ProgramService {
 
             Channel channel = new Channel(channelId, channelName);
             Program program = new Program(programId, programName);
-            ScheduleEpisode scheduleEpisode = new ScheduleEpisode(episodeId, title, description, channel, program);
+            ScheduleEpisode scheduleEpisode = new ScheduleEpisode(episodeId, title, description, starttimeutc, channel, program);
+
+            scheduleEpisodes.add(scheduleEpisode);
+        }
+        return scheduleEpisodes;
+    }
+
+    public List<ScheduleEpisode> getScheduleByChannelAndDate(long id, String date) {
+        RestTemplate template = new RestTemplate();
+        String URL = "http://api.sr.se/api/v2/scheduledepisodes?pagination=false&format=json&channelid=";
+        Map response = template.getForObject(URL + id + "&date=" + date, Map.class);
+
+        List<Map> schedulesMap = (List<Map>) response.get("schedule");
+        List<ScheduleEpisode> scheduleEpisodes = new ArrayList<>();
+
+        DateTimeFormatter formatter = new DateTimeFormatterBuilder()
+                .appendLiteral("/Date(")
+                .appendValue(ChronoField.INSTANT_SECONDS)
+                .appendValue(ChronoField.MILLI_OF_SECOND, 3)
+                .appendLiteral(")/")
+                .toFormatter();
+
+        if(schedulesMap == null) return null;
+
+        for(Map scheduleMap : schedulesMap) {
+            int episodeId = 0;
+            if(scheduleMap.get("episodeid") != null) {
+                episodeId = Integer.parseInt(scheduleMap.get("episodeid").toString());
+            }
+            String title = scheduleMap.get("title").toString();
+            String description = scheduleMap.get("description").toString();
+            String starttimeutc = scheduleMap.get("starttimeutc").toString();
+
+            Instant dateTime = formatter.parse(starttimeutc, Instant::from);
+            String formattedDate = dateTime.toString();
+            starttimeutc = formattedDate.replace("T"," ").replace("Z","");
+
+            Map channelMap = (Map) scheduleMap.get("channel");
+            int channelId = Integer.parseInt(channelMap.get("id").toString());
+            String channelName = channelMap.get("name").toString();
+
+            Map programMap = (Map) scheduleMap.get("program");
+            int programId = Integer.parseInt(programMap.get("id").toString());
+            String programName = null;
+            if(programMap.get("name") != null) {
+                programName = programMap.get("name").toString();
+            }
+
+            Channel channel = new Channel(channelId, channelName);
+            Program program = new Program(programId, programName);
+            ScheduleEpisode scheduleEpisode = new ScheduleEpisode(episodeId, title, description, starttimeutc, channel, program);
 
             scheduleEpisodes.add(scheduleEpisode);
         }

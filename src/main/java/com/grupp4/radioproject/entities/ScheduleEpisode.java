@@ -8,13 +8,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
-@JsonIgnoreProperties(value = {"episodeId", "title", "description"}, allowGetters = true)
+@JsonIgnoreProperties(value = {"episodeId", "title", "description", "starttimeutc"}, allowGetters = true)
 public class ScheduleEpisode {
 
     @Id
     private long episodeId;
     private String title;
     private String description;
+    private String starttimeutc;
 
     @ManyToOne
     Channel channel;
@@ -28,6 +29,15 @@ public class ScheduleEpisode {
     public ScheduleEpisode(String title, String description, Channel channel, Program program) {
         this.title = title;
         this.description = description;
+        this.channel = channel;
+        this.program = program;
+    }
+
+    public ScheduleEpisode(long episodeId, String title, String description, String starttimeutc, Channel channel, Program program) {
+        this.episodeId = episodeId;
+        this.title = title;
+        this.description = description;
+        this.starttimeutc = starttimeutc;
         this.channel = channel;
         this.program = program;
     }
@@ -68,6 +78,14 @@ public class ScheduleEpisode {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getStarttimeutc() {
+        return starttimeutc;
+    }
+
+    public void setStarttimeutc(String starttimeutc) {
+        this.starttimeutc = starttimeutc;
     }
 
     public Program getProgram() {
