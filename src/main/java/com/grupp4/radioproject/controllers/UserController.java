@@ -4,10 +4,8 @@ import com.grupp4.radioproject.configurations.MyUserDetailsService;
 import com.grupp4.radioproject.entities.User;
 import com.grupp4.radioproject.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
-import java.nio.file.Path;
 import java.util.List;
 
 @RestController
@@ -58,5 +56,12 @@ public class UserController {
     public User deleteFriend(@PathVariable long id) {
         return userService.deleteFriend(id);
     }
+
+    @PostMapping("/rest/user/add-programfavourite/{id}")
+    public boolean addProgramFavourite(@PathVariable long id) {
+        userService.addProgramFavourite(id);
+        return true;
+    }
+
 }
 

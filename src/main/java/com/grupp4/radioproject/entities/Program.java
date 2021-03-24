@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "programs")
@@ -16,16 +18,15 @@ public class Program {
 
     private String name;
 
-
-
-
     @ManyToOne
     private Channel channel;
 
     private String description;
 
     @ManyToOne
+    @JsonIgnore
     private ProgramCategory programCategory;
+
 
     private Program() {}
 
@@ -83,6 +84,7 @@ public class Program {
     public void setProgramCategory(ProgramCategory programCategory) {
         this.programCategory = programCategory;
     }
+
 
     @Override
     public String toString() {

@@ -25,6 +25,9 @@ public class User {
     @JsonIgnoreProperties("friends")
     private List<User> friends;
 
+    @OneToMany
+    private List<Program> programFavourites;
+
     public User() {}
 
     public User(String username) {
@@ -36,14 +39,17 @@ public class User {
         this.password = password;
     }
 
+    public User(long id, List<Program> programFavourites) {
+        this.id = id;
+        this.programFavourites = programFavourites;
+    }
+
     public List<User> getFriends() {
         return friends;
     }
 
     public void setFriends(List<User> friends) {
         this.friends = friends;
-
-
     }
 
     /**
@@ -75,6 +81,15 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+
+    public List<Program> getProgramFavourites() {
+        return programFavourites;
+    }
+
+    public void setProgramFavourites(List<Program> programFavourites) {
+        this.programFavourites = programFavourites;
     }
 
     @Override

@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "channels")
+@Table(name = "channel")
 @JsonIgnoreProperties(value = {"channelName", "tagline"}, allowGetters = true)
 public class Channel {
 
