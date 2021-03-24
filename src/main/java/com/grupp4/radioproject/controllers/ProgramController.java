@@ -14,7 +14,10 @@ public class ProgramController {
     @Autowired
     private ProgramService programService;
 
-    @GetMapping("/rest/programs/{page}")
+    @GetMapping("/rest/programs/{id}")
+    public Program getProgramById(@PathVariable long id) {return programService.getProgramById(id);}
+
+    @GetMapping("/rest/programs/page/{page}")
     public List<Program> getAllPrograms(@PathVariable int page) {
         return programService.getAllProgramsAtPage(page);
     }
