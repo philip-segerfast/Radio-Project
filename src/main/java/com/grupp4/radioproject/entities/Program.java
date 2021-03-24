@@ -18,7 +18,6 @@ public class Program {
 
     private String name;
 
-
     @ManyToOne
     private Channel channel;
 
@@ -28,8 +27,6 @@ public class Program {
     @JsonIgnore
     private ProgramCategory programCategory;
 
-    @ManyToMany(mappedBy = "programFavourites")
-    private List<User> userFavourites;
 
     private Program() {}
 
@@ -88,13 +85,6 @@ public class Program {
         this.programCategory = programCategory;
     }
 
-    public List<User> getUserFavourites() {
-        return userFavourites;
-    }
-
-    public void setUserFavourites(List<User> userFavourites) {
-        this.userFavourites = userFavourites;
-    }
 
     @Override
     public String toString() {

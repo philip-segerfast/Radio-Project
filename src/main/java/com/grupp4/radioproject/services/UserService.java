@@ -93,12 +93,10 @@ public class UserService {
         return null;
     }
 
-    public User addProgramFavourite(long id) {
-        User loggedUser = whoAmI();
-        Program programFavouriteToAdd = programService.getProgramById(id);
-        programFavouriteToAdd = programRepo.save(programFavouriteToAdd);
-        loggedUser.getProgramFavourites().add(programFavouriteToAdd);
-        return userRepo.save(loggedUser);
+    public void addProgramFavourite(long programId) {
+        long loggedUser = whoAmI().getId();
+
+        userRepo.saveFavouriteProgram(1, 35);
     }
 
 }

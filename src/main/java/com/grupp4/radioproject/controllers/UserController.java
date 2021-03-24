@@ -58,8 +58,9 @@ public class UserController {
     }
 
     @PostMapping("/rest/user/add-programfavourite/{id}")
-    public User addProgramFavourite(@PathVariable long id) {
-        return userService.addProgramFavourite(id);
+    public boolean addProgramFavourite(@PathVariable long id) {
+        userService.addProgramFavourite(id);
+        return true;
     }
 
 }

@@ -25,13 +25,7 @@ public class User {
     @JsonIgnoreProperties("friends")
     private List<User> friends;
 
-    @ManyToMany
-    @JoinTable(
-            name = ("program_favourites"),
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "program_id")
-    )
-    @JsonIgnoreProperties("program_category")
+    @OneToMany
     private List<Program> programFavourites;
 
     public User() {}
@@ -43,6 +37,11 @@ public class User {
     public User(String username, String password) {
         this.username = username;
         this.password = password;
+    }
+
+    public User(long id, List<Program> programFavourites) {
+        this.id = id;
+        this.programFavourites = programFavourites;
     }
 
     public List<User> getFriends() {
