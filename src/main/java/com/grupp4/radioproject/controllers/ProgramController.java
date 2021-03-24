@@ -41,4 +41,8 @@ public class ProgramController {
         return programService.getScheduleByChannel(id);
     }
 
+    @GetMapping("/rest/programs/tableau/{id}/{date}")
+    public List<ScheduleEpisode> getScheduleByChannelAndDate(@PathVariable long id, @PathVariable String date) {
+        return programService.getScheduleByChannelAndDate(id, date);
+    }
 }
