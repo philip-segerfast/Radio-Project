@@ -97,7 +97,6 @@ public class UserService {
         User loggedUser = whoAmI();
         return loggedUser.getFriends();
     }
-}
 
     public void addProgramFavourite(long programId) {
         long loggedUser = whoAmI().getId();
