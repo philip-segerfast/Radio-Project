@@ -1,6 +1,7 @@
 package com.grupp4.radioproject.controllers;
 
 import com.grupp4.radioproject.configurations.MyUserDetailsService;
+import com.grupp4.radioproject.entities.Program;
 import com.grupp4.radioproject.entities.User;
 import com.grupp4.radioproject.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +48,7 @@ public class UserController {
         return userService.updateById(id, user);
     }
 
-    @PostMapping("/rest/user/add-friend/{id}")
+    @PutMapping("/rest/user/add-friend/{id}")
     public User addFriend(@PathVariable long id){
         return userService.addFriend(id);
     }
@@ -63,10 +64,14 @@ public class UserController {
         return true;
     }
 
-
     @GetMapping("/rest/user/friends")
     public List<User> getFriends() {
         return userService.getFriends();
+    }
+
+    @GetMapping("/rest/program-favourites")
+    public List<Program> getProgramFavourites() {
+        return userService.getProgramFavourites();
     }
 }
 

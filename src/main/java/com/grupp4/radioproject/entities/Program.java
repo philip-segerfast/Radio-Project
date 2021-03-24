@@ -27,7 +27,6 @@ public class Program {
     @JsonIgnore
     private ProgramCategory programCategory;
 
-
     private Program() {}
 
     public Program(long programId, String name) {
@@ -57,30 +56,38 @@ public class Program {
         this.programId = programId;
     }
 
+    @JsonProperty
     public String getName() {
         return name;
     }
+    @JsonIgnore
     public void setName(String name) {
         this.name = name;
     }
 
+    @JsonProperty
     public Channel getChannel() {
         return channel;
     }
+    @JsonIgnore
     public void setChannel(Channel channel) {
         this.channel = channel;
     }
 
+    @JsonProperty
     public String getDescription() {
         return description;
     }
+    @JsonIgnore
     public void setDescription(String description) {
         this.description = description;
     }
 
+    @JsonProperty
     public ProgramCategory getProgramCategory() {
         return programCategory;
     }
+    @JsonIgnore
     public void setProgramCategory(ProgramCategory programCategory) {
         this.programCategory = programCategory;
     }

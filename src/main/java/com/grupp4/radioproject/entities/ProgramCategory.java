@@ -4,11 +4,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * Not stored our database.
  */
 @Entity
+@Table(name = "program_categories")
 @JsonIgnoreProperties(value = {"id", "name"}, allowGetters = true)
 public class ProgramCategory {
 

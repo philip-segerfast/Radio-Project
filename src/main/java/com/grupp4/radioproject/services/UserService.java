@@ -6,9 +6,16 @@ import com.grupp4.radioproject.entities.User;
 import com.grupp4.radioproject.repositories.ProgramRepo;
 import com.grupp4.radioproject.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,6 +33,9 @@ public class UserService {
 
     @Autowired
     private ProgramService programService;
+
+    @Autowired
+    DataSource dataSource;
 
     /**
      * @return The logged-in user
@@ -99,9 +109,32 @@ public class UserService {
     }
 
     public void addProgramFavourite(long programId) {
-        long loggedUser = whoAmI().getId();
+        long loggedUserId = whoAmI().getId();
+        userRepo.saveFavouriteProgram(loggedUserId, programId);
+    }
 
-        userRepo.saveFavouriteProgram(1, 35);
+    public List<Program> getProgramFavourites() {
+        User loggedUser = whoAmI();
+
+        try {
+            Connection conn = DataSourceUtils.doGetConnection(dataSource);
+            PreparedStatement preparedStatement = conn.prepareStatement("SELECT program_id FROM program_favourites WHERE user_id = ?;");
+            preparedStatement.setLong(1, loggedUser.getId());
+            ResultSet res = preparedStatement.executeQuery();
+
+            List<Program> favouritePrograms = new ArrayList<>();
+            while(res.next()) {
+                int programId = res.getInt(1);
+                Program program = programService.getProgramById(programId);
+                favouritePrograms.add(program);
+            }
+            return favouritePrograms;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
 }

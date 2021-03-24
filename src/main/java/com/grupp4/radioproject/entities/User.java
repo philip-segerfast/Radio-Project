@@ -3,8 +3,11 @@ package com.grupp4.radioproject.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.context.ApplicationContext;
 
 import javax.persistence.*;
+import javax.sql.DataSource;
+import java.sql.Connection;
 import java.util.List;
 
 @Entity
@@ -26,6 +29,8 @@ public class User {
     private List<User> friends;
 
     @OneToMany
+    //@JsonIgnoreProperties("programFavourites")
+    @JsonIgnore
     private List<Program> programFavourites;
 
     public User() {}
@@ -82,7 +87,6 @@ public class User {
     public void setUsername(String username) {
         this.username = username;
     }
-
 
     public List<Program> getProgramFavourites() {
         return programFavourites;

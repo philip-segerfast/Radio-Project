@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.sql.ResultSet;
 
 @Repository
 public interface UserRepo extends JpaRepository<User, Long> {
@@ -18,4 +19,5 @@ public interface UserRepo extends JpaRepository<User, Long> {
     @Modifying
     @Query(value = "INSERT INTO program_favourites (user_id, program_id) values (:user_id, :program_id)", nativeQuery = true)
     void saveFavouriteProgram(@Param("user_id") long userId, @Param("program_id") long programId);
+
 }
