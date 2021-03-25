@@ -21,6 +21,8 @@ public class Channel {
     @OneToMany(mappedBy = "channel")
     private List<Program> programs;
 
+
+
     /**
      * Describes what the channel is about
      */

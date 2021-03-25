@@ -106,10 +106,11 @@ public class ScheduleEpisode {
 
     @Override
     public String toString() {
-        return "Schedule{" +
+        return "ScheduleEpisode{" +
                 "episodeId=" + episodeId +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
+                ", starttimeutc='" + starttimeutc + '\'' +
                 ", channel=" + channel +
                 ", program=" + program +
                 '}';

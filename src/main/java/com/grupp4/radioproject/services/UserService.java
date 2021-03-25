@@ -12,12 +12,13 @@ import org.springframework.stereotype.Service;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import static com.grupp4.radioproject.utils.PrintUtils.*;
 
 @Service
 public class UserService {
@@ -111,6 +112,12 @@ public class UserService {
     public void addProgramFavourite(long programId) {
         long loggedUserId = whoAmI().getId();
         userRepo.saveFavouriteProgram(loggedUserId, programId);
+        Program program = programRepo.findById(programId).orElse(null);
+        if(program != null) {
+            programService.registerProgram(program);
+        } else {
+            printError("Program to add to database didn't exist");
+        }
     }
 
     public List<Program> getProgramFavourites() {

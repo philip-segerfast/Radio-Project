@@ -18,8 +18,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
-import static com.grupp4.radioproject.utils.PrintUtils.printColoredLine;
-import static com.grupp4.radioproject.utils.PrintUtils.printInfo;
+import static com.grupp4.radioproject.utils.PrintUtils.*;
 
 @Service
 public class ProgramService {
@@ -41,6 +40,7 @@ public class ProgramService {
     private void loadProgramsFromApi() {
         // Creates and starts a timer that will retrieve all programs from the Radio API once every 10 minutes.
         Executors.newSingleThreadScheduledExecutor().scheduleWithFixedDelay(() -> {
+            printInfo("Retrieving programs from API...");
             var programs = getAllPrograms();
             allPrograms = programs;
             printInfo("Retrieved: " + programs.size() + " programs from SR API");
@@ -201,7 +201,6 @@ public class ProgramService {
         List<Map> schedulesMap = (List<Map>) response.get("schedule");
         List<ScheduleEpisode> scheduleEpisodes = new ArrayList<>();
 
-
         DateTimeFormatter formatter = new DateTimeFormatterBuilder()
                 .appendLiteral("/Date(")
                 .appendValue(ChronoField.INSTANT_SECONDS)
@@ -307,8 +306,22 @@ public class ProgramService {
         return programRepo.save(program);
     }
 
+    public List<ScheduleEpisode> getScheduleForProgram(long programId) {
+        // 1. ta reda på vilken kanal programmet tillhör
+        // 2. Hämta ut tablå för kanalen
+        // 3. Filtrera endast ut episoder som tillhör det här programmet
+        Program program = getProgramById(programId);
+        Channel channel = program.getChannel();
+        List<ScheduleEpisode> channelSchedule = getScheduleByChannel(channel.getChannelId());
+        List<ScheduleEpisode> programSchedule = new ArrayList<>();
+        for(ScheduleEpisode episode : channelSchedule) {
+            if(episode.getProgram().getProgramId() == programId) {
+                programSchedule.add(episode);
+            }
+        }
 
-
+        return programSchedule;
+    }
 }
 
 

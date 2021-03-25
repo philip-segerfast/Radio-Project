@@ -46,4 +46,10 @@ public class ProgramController {
     public List<ScheduleEpisode> getScheduleByChannelAndDate(@PathVariable long id, @PathVariable String date) {
         return programService.getScheduleByChannelAndDate(id, date);
     }
+
+    // Hämta tablå för ett program
+    @GetMapping("/rest/programs/tableau/program/{programId}")
+    public List<ScheduleEpisode> getScheduleForProgram(@PathVariable long programId) {
+        return programService.getScheduleForProgram(programId);
+    }
 }
