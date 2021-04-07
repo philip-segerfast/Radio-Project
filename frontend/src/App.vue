@@ -14,7 +14,10 @@ export default {
 
 </script>
 
-<style>
+<!-- GLOBAL STYLE APPLIES TO EVERYTHING -->
+<style src="./style.css"></style>
+
+<style scoped>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
