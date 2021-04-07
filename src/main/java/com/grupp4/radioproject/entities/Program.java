@@ -9,7 +9,6 @@ import java.util.Set;
 
 @Entity
 @Table(name = "programs")
-@JsonIgnoreProperties(value = {"name", "channel", "description"}, allowGetters = true)
 public class Program {
 
     @Id
@@ -21,10 +20,10 @@ public class Program {
     @ManyToOne
     private Channel channel;
 
+    @JsonIgnore
     private String description;
 
     @ManyToOne
-    @JsonIgnore
     private ProgramCategory programCategory;
 
     public Program(long programId, String name) {
@@ -52,6 +51,7 @@ public class Program {
     public long getProgramId() {
         return programId;
     }
+    @JsonProperty
     public void setProgramId(long programId) {
         this.programId = programId;
     }

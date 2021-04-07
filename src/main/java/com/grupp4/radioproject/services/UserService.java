@@ -36,6 +36,9 @@ public class UserService {
     private ProgramService programService;
 
     @Autowired
+    private ChannelService channelService;
+
+    @Autowired
     DataSource dataSource;
 
     /**
@@ -109,15 +112,53 @@ public class UserService {
         return loggedUser.getFriends();
     }
 
-    public void addProgramFavourite(long programId) {
-        long loggedUserId = whoAmI().getId();
-        userRepo.saveFavouriteProgram(loggedUserId, programId);
-        Program program = programRepo.findById(programId).orElse(null);
+    public boolean addProgramFavourite(long programId) {
+        User loggedUser = whoAmI();
+        long loggedUserId = loggedUser.getId();
+        String loggedUserName = loggedUser.getUsername();
+
+        Program program = programService.getProgramById(programId);
         if(program != null) {
+            long channelId = program.getChannel().getId();
+
+            printDebug("1");
+            //1. Check if channel doesn't already exist
+            channelService.registerChannel(channelId);
+
+            printDebug("2");
+            //2. Check if program doesn't already exist
             programService.registerProgram(program);
+
+            printDebug("3");
+            return registerFavouriteProgram(program, loggedUser);
+
         } else {
-            printError("Program to add to database didn't exist");
+            printError("Tried to save program that didn't exist in API as favourite for user " + loggedUserName + ".");
         }
+        return false;
+    }
+
+    /**
+     * Registers a program as a favourite.
+     * @return true if new favourite was saved, false if it wasn't saved.
+     */
+    private boolean registerFavouriteProgram(Program program, User user) {
+        if(!doesUserHaveProgramAsFavourite(program.getProgramId())) {
+            userRepo.saveFavouriteProgram(user.getId(), program.getProgramId());
+            printInfo("New Favourite program registered in database for user " + user.getUsername() + ".");
+            return true;
+        }
+        return false;
+    }
+
+    private boolean doesUserHaveProgramAsFavourite(long programId) {
+        List<Program> favourites = getProgramFavourites();
+        for(Program program : favourites) {
+            if(program.getProgramId() == programId) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public List<Program> getProgramFavourites() {

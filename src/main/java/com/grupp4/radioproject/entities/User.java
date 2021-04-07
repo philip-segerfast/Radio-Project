@@ -29,7 +29,6 @@ public class User {
     private List<User> friends;
 
     @OneToMany
-    //@JsonIgnoreProperties("programFavourites")
     @JsonIgnore
     private List<Program> programFavourites;
 

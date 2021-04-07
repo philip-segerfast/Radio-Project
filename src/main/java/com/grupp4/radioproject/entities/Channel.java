@@ -2,6 +2,7 @@ package com.grupp4.radioproject.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import java.util.List;
@@ -13,8 +14,10 @@ public class Channel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long channelId;
+    @Column(name = "channel_id")
+    private long id;
 
+    @JsonIgnore
     private String channelName;
 
     @JsonIgnore
@@ -33,15 +36,16 @@ public class Channel {
     }
 
     public Channel(long channelId, String channelName, String tagline) {
-        this.channelId = channelId;
+        this.id = channelId;
         this.channelName = channelName;
         this.tagline = tagline;
     }
 
+    @JsonProperty
     public String getTagline() {
         return tagline;
     }
-
+    @JsonIgnore
     public void setTagline(String tagline) {
         this.tagline = tagline;
     }
@@ -49,23 +53,20 @@ public class Channel {
     public List<Program> getPrograms() {
         return programs;
     }
-
     public void setPrograms(List<Program> programs) {
         this.programs = programs;
     }
 
-    public long getChannelId() {
-        return channelId;
+    public long getId() {
+        return id;
     }
-
-    public void setChannelId(long channelId) {
-        this.channelId = channelId;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getChannelName() {
         return channelName;
     }
-
     public void setChannelName(String channelName) {
         this.channelName = channelName;
     }
@@ -73,7 +74,7 @@ public class Channel {
     @Override
     public String toString() {
         return "Channel{" +
-                "channelId=" + channelId +
+                "channelId=" + id +
                 ", channelName='" + channelName + '\'' +
                 ", programs=" + programs +
                 '}';

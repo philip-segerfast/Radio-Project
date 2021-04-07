@@ -2,6 +2,8 @@ package com.grupp4.radioproject.services;
 
 import com.grupp4.radioproject.entities.Channel;
 import com.grupp4.radioproject.entities.ProgramCategory;
+import com.grupp4.radioproject.repositories.ChannelRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -9,8 +11,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static com.grupp4.radioproject.utils.PrintUtils.printDebug;
+import static com.grupp4.radioproject.utils.PrintUtils.printInfo;
+
 @Service
 public class ChannelService {
+
+    @Autowired
+    private ChannelRepo channelRepo;
 
     public List<Channel> getAllChannels() {
         RestTemplate template = new RestTemplate();
@@ -50,4 +58,17 @@ public class ChannelService {
 
         return new Channel(channelId, channelName, tagline);
     }
+    public boolean registerChannel(long channelId) {
+        printDebug("PROBLEM HÄR?");
+        if(channelRepo.findById(channelId).isEmpty()) { /////////////////////////////////////////////////////////////// PROBLEM HÄR. FINDBYID FUNKAR EJ!!!!!!!!!!!!!!!!!!
+            printDebug("ELLER INTE?");
+            // Channel doesn't exist in database
+            printInfo("Saving channel...");
+            channelRepo.customSave(channelId);
+            printInfo("New Channel registered in database.");
+            return true;
+        }
+        return false;
+    }
+
 }
