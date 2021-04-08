@@ -10,12 +10,12 @@ const routes = [
     component: Home
   },
   {
-    path: '/programs/:channelID',
+    path: '/programs/:channelId',
     name: 'ChannelPrograms',
     component: ChannelPrograms
   },
   {
-    path: '/program/:programID',
+    path: '/program/:programId',
     name: 'Program',
     component: Program
   }

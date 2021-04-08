@@ -1,11 +1,9 @@
 <template>
-  <div id="program-info-container">
-    <div id="header">Det var en gång en fågel</div>
+  <div id="program-info-container" class="one-edge-shadow">
+    <div id="header"> {{ program.name }} </div>
     <div id="left-box">
       <div id="description" class="selectable">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Sequi labore explicabo voluptate facere, dolores et.
-        Perspiciatis libero repellat quos neque?
+        {{ program.description }}
       </div>
       <div id="icon-bar">
         <div id="share" class="tmp-icon">
