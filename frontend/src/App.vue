@@ -1,6 +1,8 @@
 <template>
-  <TopBar />
-  <router-view />
+  <div id="app-container">
+    <TopBar />
+    <router-view />
+  </div>
 </template>
 
 <script>
@@ -18,12 +20,17 @@ export default {
 <style src="./style.css"></style>
 
 <style scoped>
-#app {
+#app-container {
+  display: flex;
+  justify-content: center;
+  padding: 1%;
+  background-color: orangered;
+  min-height: 100vh;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
+  margin: 0;
 }
 
 #nav {

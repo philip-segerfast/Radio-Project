@@ -1,3 +1,24 @@
 * {
 	box-sizing: border-box;
 }
+
+:root {
+	--medium-padding: 10px;
+	--small-padding: 5px;
+}
+
+body {
+	margin: 0;
+	-webkit-user-select: none; /* Safari */        
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* IE10+/Edge */
+	user-select: none; /* Standard */
+}
+
+.selectable {
+	-moz-user-select: text;
+	-khtml-user-select: text;
+	-webkit-user-select: text;
+	-ms-user-select: text;
+	user-select: text;
+}
