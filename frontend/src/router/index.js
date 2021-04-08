@@ -10,6 +10,11 @@ const routes = [
     component: Home
   },
   {
+    path: '/login',
+    name: 'Login',
+    component: Login
+  },
+  {
     path: '/programs/:channelID',
     name: 'ChannelPrograms',
     component: ChannelPrograms
