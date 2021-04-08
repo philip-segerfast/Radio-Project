@@ -3,11 +3,15 @@ import axios from 'axios'
 
 export default createStore({
   state: {
-    episodes: String
+    episodes: String,
+    clickedProgram: null
   },
   mutations: {
     setEpisodes (state, payload) {
       state.episodes = payload
+    },
+    setClickedProgram (state, payload) {
+      state.clickedProgram = payload
     }
   },
   actions: {
