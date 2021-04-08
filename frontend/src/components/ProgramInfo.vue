@@ -50,12 +50,11 @@ export default {
 }
 
 #left-box {
-  grid-row: 2 / 3;
+  grid-row: 2 / 2;
+  grid-column: 1 / 2;
 
   display: grid;
-  height: 100%;
   grid-template-rows: auto min-content;
-  align-self: baseline;
   background-color: rgb(246, 178, 191);
   padding: var(--medium-padding);
   border-radius: inherit;
@@ -69,7 +68,7 @@ export default {
   display: flex;
   flex-direction: row;
   align-content: center;
-  justify-content: right;
+  justify-content: flex-end;
 }
 
 .tmp-icon {
@@ -78,6 +77,7 @@ export default {
   padding: 3px;
   border-radius: 5px;
   cursor: pointer;
+  border: 1px solid rgb(182, 77, 182);
 }
 
 .tmp-icon:hover {
