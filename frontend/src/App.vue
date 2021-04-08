@@ -1,5 +1,6 @@
 <template>
   <TopBar />
+  <EpisodePreview />
   <router-view />
 </template>
 
