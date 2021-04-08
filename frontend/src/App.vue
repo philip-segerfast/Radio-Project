@@ -1,7 +1,8 @@
 <template>
-  <TopBar />
-  <EpisodePreview />
-  <router-view />
+  <div id="app-container">
+    <TopBar />
+    <router-view />
+  </div>
 </template>
 
 <script>
@@ -15,13 +16,21 @@ export default {
 
 </script>
 
-<style>
-#app {
+<!-- GLOBAL STYLE APPLIES TO EVERYTHING -->
+<style src="./style.css"></style>
+
+<style scoped>
+#app-container {
+  display: flex;
+  justify-content: center;
+  padding: 1%;
+  background-color: orangered;
+  min-height: 100vh;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
+  margin: 0;
 }
 
 #nav {

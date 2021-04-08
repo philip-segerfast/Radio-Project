@@ -18,8 +18,13 @@ public class ProgramController {
     public Program getProgramById(@PathVariable long id) {return programService.getProgramById(id);}
 
     @GetMapping("/rest/programs/page/{page}")
-    public List<Program> getAllPrograms(@PathVariable int page) {
+    public List<Program> getAllProgramsAtPage(@PathVariable int page) {
         return programService.getAllProgramsAtPage(page);
+    }
+
+    @GetMapping("/rest/programs")
+    public List<Program> getAllPrograms() {
+        return ProgramService.allPrograms;
     }
 
     @GetMapping("/rest/programs/search/{phrase}")
