@@ -1,11 +1,11 @@
 <template>
   <div class="episodePreviewCard">
+
   </div>
 </template>
 
 <script>
 export default {
-  name: 'EpisodePreview'
 }
 </script>
 

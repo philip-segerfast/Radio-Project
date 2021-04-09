@@ -19,6 +19,7 @@ export default {
       program: ''
     }
   },
+
   async mounted () {
     const programId = this.$route.params.programId
     try {
@@ -31,6 +32,7 @@ export default {
         description: 'nada'
       }
     }
+
   },
   components: {
     EpisodeList,

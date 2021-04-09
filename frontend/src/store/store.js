@@ -1,5 +1,4 @@
 import { createStore } from 'vuex'
-import axios from 'axios'
 
 export default createStore({
   state: {
@@ -7,6 +6,7 @@ export default createStore({
     clickedProgram: null,
     programs: null
   },
+
   mutations: {
     setEpisodes (state, payload) {
       state.episodes = payload
@@ -17,15 +17,12 @@ export default createStore({
     setPrograms (state, payload) {
       state.programs = payload
     }
+
   },
+
   actions: {
-    async fetchEpisodes () {
-      await axios.get('http://localhost:5000/rest/episodes/3718')
-        .then(response => {
-          this.commit('setEpisodes', response.data)
-        })
-    }
   },
+
   modules: {
   }
 })
