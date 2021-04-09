@@ -1,30 +1,34 @@
 <template>
   <div id="episode-list-container">Episode list
     <ol>
-      <li> {{ id }} </li>
+      <li v-for="(episode, i) in episodes" :key="i"> {{  }} </li>
     </ol>
   </div>
 </template>
 
 <script>
 export default {
+  props: ['program'],
+
   name: 'EpisodeList',
 
   data () {
     return {
-      id: ''
+      id: null,
+      episode: '',
+      episodes: []
     }
   },
 
   async mounted () {
-    console.log(this.$route.params.id)
-
-    this.id = this.$route.params.id
-
-    let program = await fetch('/rest/episodes/' + this.id)
-    program = await program.json()
-
-    console.log(program)
+    const programId = this.$route.params.programId
+    try {
+      const response = await fetch('/rest/episodes/' + programId)
+      const episode = await response.json()
+      console.log(episode)
+    } catch {
+      alert('Ogiltigt program. Prova med ett annat ID.')
+    }
   }
 }
 </script>
