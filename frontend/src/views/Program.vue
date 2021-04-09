@@ -19,6 +19,7 @@ export default {
       program: null
     }
   },
+
   mounted () {
     // 1. Get program with ID of param.
     // 2. Set data variable to the program.
