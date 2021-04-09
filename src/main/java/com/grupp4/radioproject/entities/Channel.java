@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "channel")
+@Table(name = "channels")
 @JsonIgnoreProperties(value = {"channelName", "tagline"}, allowGetters = true)
 public class Channel {
 
@@ -21,12 +21,12 @@ public class Channel {
     @OneToMany(mappedBy = "channel")
     private List<Program> programs;
 
-
-
     /**
      * Describes what the channel is about
      */
     private String tagline;
+
+    public Channel() { }
 
     public Channel(long channelId, String channelName) {
         this(channelId, channelName, "icke-definierad");

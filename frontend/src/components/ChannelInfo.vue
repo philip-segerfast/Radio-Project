@@ -1,9 +1,9 @@
 <template>
-  <div id="program-info-container" class="one-edge-shadow">
-    <div id="header"> {{ program.name }} </div>
+  <div id="channel-info-container" class="one-edge-shadow">
+    <div id="header"> {{ channel.channelName }} </div>
     <div id="left-box">
       <div id="description" class="selectable">
-        {{ program.description }}
+        {{ channel.tagline }}
       </div>
       <div id="icon-bar">
         <div id="share" class="tmp-icon">
@@ -22,12 +22,12 @@
 
 <script>
 export default {
-  props: ['program']
+  props: ['channel']
 }
 </script>
 
 <style scoped>
-#program-info-container {
+#channel-info-container {
   display: grid;
   grid-template-columns: auto min-content;
   grid-template-rows: min-content auto;
