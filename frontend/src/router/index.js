@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
-import ChannelPrograms from '../views/ChannelPrograms.vue'
+import Channel from '../views/Channel.vue'
 import Program from '../views/Program.vue'
 
 const routes = [
@@ -11,8 +11,8 @@ const routes = [
   },
   {
     path: '/programs/:channelId',
-    name: 'ChannelPrograms',
-    component: ChannelPrograms
+    name: 'Channel',
+    component: Channel
   },
   {
     path: '/program/:programId',

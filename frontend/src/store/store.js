@@ -4,7 +4,8 @@ import axios from 'axios'
 export default createStore({
   state: {
     episodes: String,
-    clickedProgram: null
+    clickedProgram: null,
+    programs: null
   },
   mutations: {
     setEpisodes (state, payload) {
@@ -12,6 +13,9 @@ export default createStore({
     },
     setClickedProgram (state, payload) {
       state.clickedProgram = payload
+    },
+    setPrograms (state, payload) {
+      state.programs = payload
     }
   },
   actions: {

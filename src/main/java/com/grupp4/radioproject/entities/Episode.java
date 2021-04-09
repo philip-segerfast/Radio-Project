@@ -13,7 +13,7 @@ public class Episode {
     private String publishdateutc;
     private String url;
 
-    private Episode() {}
+    public Episode() { }
 
     public Episode(long id, String name) {
         this.episodeId = id;
