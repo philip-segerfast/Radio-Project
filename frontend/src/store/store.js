@@ -1,26 +1,30 @@
+import axios from 'axios'
 import { createStore } from 'vuex'
 
 export default createStore({
   state: {
-    episodes: String,
-    clickedProgram: null,
-    programs: null
+    searchString: '',
+    programs: []
   },
 
   mutations: {
-    setEpisodes (state, payload) {
-      state.episodes = payload
-    },
-    setClickedProgram (state, payload) {
-      state.clickedProgram = payload
-    },
-    setPrograms (state, payload) {
+    setprograms (state, payload) {
       state.programs = payload
     }
-
   },
 
   actions: {
+    async fetchPrograms () {
+      await axios.get('/rest/programs/search/' + this.searchString)
+        .then(response => (this.programs = response.data))
+        .catch(error => console.log(error))
+    }
+  },
+
+  getters: {
+    getPrograms (state) {
+      return state.programs
+    }
   },
 
   modules: {
