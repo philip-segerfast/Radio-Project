@@ -32,8 +32,8 @@ export default {
         description: 'nada'
       }
     }
-
   },
+
   components: {
     EpisodeList,
     ProgramInfo
