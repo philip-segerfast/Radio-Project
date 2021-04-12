@@ -1,30 +1,37 @@
 <template>
-  <div id="episode-list-container">Episode list
-    <ol>
-      <li> {{ id }} </li>
-    </ol>
+  <div id="episode-list-container" class="selectable">Episode list
+    <ul>
+      <li v-for="(episode, i) in episodes" :key="i"> <b> {{ episode.name }} </b>
+        <br> {{ episode.description }}
+        <br> {{ episode.publishdateutc }}
+        <br> {{ episode.url }} </li>
+    </ul>
   </div>
 </template>
 
 <script>
 export default {
+  props: ['program'],
+
   name: 'EpisodeList',
 
   data () {
     return {
-      id: ''
+      id: null,
+      episodes: []
     }
   },
 
   async mounted () {
-    console.log(this.$route.params.id)
-
-    this.id = this.$route.params.id
-
-    let program = await fetch('/rest/episodes/' + this.id)
-    program = await program.json()
-
-    console.log(program)
+    const programId = this.$route.params.programId
+    try {
+      const response = await fetch('/rest/episodes/' + programId)
+      const episodes = await response.json()
+      this.episodes = episodes
+      console.log(episodes)
+    } catch {
+      alert('Ogiltigt program. Prova med ett annat ID.')
+    }
   }
 }
 </script>

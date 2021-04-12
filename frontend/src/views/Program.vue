@@ -4,7 +4,7 @@
       <ProgramInfo :program="program" />
     </div>
     <div id="program-list">
-      <EpisodeList />
+      <EpisodeList :episode="program"/>
     </div>
   </div>
 </template>
@@ -21,9 +21,9 @@ export default {
   },
 
   async mounted () {
-    const programId = this.$route.params.programId
+    this.programId = this.$route.params.programId
     try {
-      const response = await fetch('/rest/programs/' + programId)
+      const response = await fetch('/rest/programs/' + this.programId)
       this.program = await response.json()
     } catch {
       alert('Ogiltigt program. Prova med ett annat ID.')
