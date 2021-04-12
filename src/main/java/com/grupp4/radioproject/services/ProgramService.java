@@ -3,7 +3,6 @@ package com.grupp4.radioproject.services;
 import com.grupp4.radioproject.entities.*;
 import com.grupp4.radioproject.repositories.ChannelRepo;
 import com.grupp4.radioproject.repositories.ProgramRepo;
-import com.grupp4.radioproject.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -27,8 +26,11 @@ public class ProgramService {
     private ProgramRepo programRepo;
 
     @Autowired
-    private UserRepo userRepo;
+    ChannelRepo channelRepo;
 
+    /**
+     * Default for how many programs will be fetched at once with pagination set to true
+     */
     public static final int DEFAULT_PAGE_SIZE = 10;
 
     /**
@@ -74,7 +76,7 @@ public class ProgramService {
     }
 
     /**
-     * Get's exactly ALL programs there is in the API.
+     * Get exactly ALL programs there is in the API.
      * Don't call outside this method.
      * To access all programs, use the static variable allPrograms.
      * @return All programs in the entire API.
@@ -85,6 +87,13 @@ public class ProgramService {
         return getPrograms(template, URL);
     }
 
+    /**
+     * Expects a collection of programs as the returned fetch of the specified URL.
+     * Grabs everything and returns it.
+     * @param template
+     * @param URL
+     * @return A collection of programs.
+     */
     private List<Program> getPrograms(RestTemplate template, String URL) {
         Map response = template.getForObject(URL, Map.class);
 
@@ -95,16 +104,25 @@ public class ProgramService {
             return null;
 
         for(Map programMap : programsMap) {
-            int programId = Integer.parseInt(programMap.get("id").toString());
+            long programId = Integer.parseInt(programMap.get("id").toString());
             String programName = programMap.get("name").toString();
             String programDescription = programMap.get("description").toString();
 
             Map channelMap = (Map) programMap.get("channel");
-            int channelId = Integer.parseInt(channelMap.get("id").toString());
+            long channelId = Integer.parseInt(channelMap.get("id").toString());
             String channelName = channelMap.get("name").toString();
 
+            // Program category
+            Map categoryMap = (Map) programMap.get("programcategory");
+            ProgramCategory category = null;
+            if(categoryMap != null) {
+                long categoryId = Long.parseLong(categoryMap.get("id").toString());
+                String name = categoryMap.get("name").toString();
+                category = new ProgramCategory(categoryId, name);
+            }
+
             Channel channel = new Channel(channelId, channelName);
-            Program program = new Program(programId, programName, channel, programDescription);
+            Program program = new Program(programId, programName, channel, programDescription, category);
 
             programs.add(program);
         }
@@ -112,7 +130,7 @@ public class ProgramService {
         return programs;
     }
 
-    public List<Program> getProgramsByChannel(long id){
+    public List<Program> getProgramsByChannel(long id) {
         RestTemplate template = new RestTemplate();
         String URL = "http://api.sr.se/api/v2/programs/index?format=json&channelid=";
         Map response = template.getForObject(URL + id, Map.class);
@@ -124,12 +142,12 @@ public class ProgramService {
             return null;
 
         for(Map programMap : programsMap) {
-            int programId = Integer.parseInt(programMap.get("id").toString());
+            Long programId = Long.parseLong(programMap.get("id").toString());
             String programName = programMap.get("name").toString();
             String programDescription = programMap.get("description").toString();
 
             Map channelMap = (Map) programMap.get("channel");
-            int channelId = Integer.parseInt(channelMap.get("id").toString());
+            Long channelId = Long.parseLong(channelMap.get("id").toString());
             String channelName = channelMap.get("name").toString();
 
             Channel channel = new Channel(channelId, channelName);
@@ -140,11 +158,10 @@ public class ProgramService {
         return programs;
     }
 
-
     public List<Program> getProgramsByCategory(long id) {
         RestTemplate template = new RestTemplate();
         String URL = "http://api.sr.se/api/v2/programs/index?format=json&pagination=false&programcategoryid=";
-        Map response = template.getForObject(URL + id, Map.class);
+        var response = template.getForObject(URL + id, Map.class);
 
         List<Map> categoriesMap = (List<Map>) response.get("programs");
         List<Program> programs = new ArrayList<>();
@@ -153,16 +170,16 @@ public class ProgramService {
             return null;
 
         for(Map categoryMap : categoriesMap) {
-            int programId = Integer.parseInt(categoryMap.get("id").toString());
+            long programId = Long.parseLong(categoryMap.get("id").toString());
             String programName = categoryMap.get("name").toString();
             String programDescription = categoryMap.get("description").toString();
 
             Map channelMap = (Map) categoryMap.get("channel");
-            int channelId = Integer.parseInt(channelMap.get("id").toString());
+            long channelId = Long.parseLong(channelMap.get("id").toString());
             String channelName = channelMap.get("name").toString();
 
             Map programCategoryMap = (Map) categoryMap.get("programcategory");
-            int categoryId = Integer.parseInt(programCategoryMap.get("id").toString());
+            long categoryId = Long.parseLong(programCategoryMap.get("id").toString());
             String categoryName = programCategoryMap.get("name").toString();
 
             Channel channel = new Channel(channelId, channelName);
@@ -193,9 +210,9 @@ public class ProgramService {
         if(schedulesMap == null) return null;
 
         for(Map scheduleMap : schedulesMap) {
-            int episodeId = 0;
+            long episodeId = 0;
             if(scheduleMap.get("episodeid") != null) {
-                episodeId = Integer.parseInt(scheduleMap.get("episodeid").toString());
+                episodeId = Long.parseLong(scheduleMap.get("episodeid").toString());
             }
             String title = scheduleMap.get("title").toString();
             String description = scheduleMap.get("description").toString();
@@ -206,11 +223,11 @@ public class ProgramService {
             starttimeutc = formattedDate.replace("T"," ").replace("Z","");
 
             Map channelMap = (Map) scheduleMap.get("channel");
-            int channelId = Integer.parseInt(channelMap.get("id").toString());
+            long channelId = Long.parseLong(channelMap.get("id").toString());
             String channelName = channelMap.get("name").toString();
 
             Map programMap = (Map) scheduleMap.get("program");
-            int programId = Integer.parseInt(programMap.get("id").toString());
+            long programId = Long.parseLong(programMap.get("id").toString());
             String programName = null;
             if(programMap.get("name") != null) {
                 programName = programMap.get("name").toString();
@@ -243,9 +260,9 @@ public class ProgramService {
         if(schedulesMap == null) return null;
 
         for(Map scheduleMap : schedulesMap) {
-            int episodeId = 0;
+            long episodeId = 0;
             if(scheduleMap.get("episodeid") != null) {
-                episodeId = Integer.parseInt(scheduleMap.get("episodeid").toString());
+                episodeId = Long.parseLong(scheduleMap.get("episodeid").toString());
             }
             String title = scheduleMap.get("title").toString();
             String description = scheduleMap.get("description").toString();
@@ -256,11 +273,11 @@ public class ProgramService {
             starttimeutc = formattedDate.replace("T"," ").replace("Z","");
 
             Map channelMap = (Map) scheduleMap.get("channel");
-            int channelId = Integer.parseInt(channelMap.get("id").toString());
+            long channelId = Long.parseLong(channelMap.get("id").toString());
             String channelName = channelMap.get("name").toString();
 
             Map programMap = (Map) scheduleMap.get("program");
-            int programId = Integer.parseInt(programMap.get("id").toString());
+            long programId = Long.parseLong(programMap.get("id").toString());
             String programName = null;
             if(programMap.get("name") != null) {
                 programName = programMap.get("name").toString();
@@ -277,7 +294,7 @@ public class ProgramService {
 
     public Program getProgramById (long id) {
         for(Program program: allPrograms) {
-            if(program.getProgramId() == id ) {
+            if(program.getId() == id ) {
                 return program;
             }
         }
@@ -290,21 +307,12 @@ public class ProgramService {
      */
     public void registerProgram(Program program) {
 
-        if(programRepo.findById(program.getProgramId()).isEmpty()) {
+        if(programRepo.findById(program.getId()).isEmpty()) {
             // Program doesn't exist in database
             printInfo("Saving program...");
-            programRepo.customSave(program.getProgramId(), program.getChannel().getId());
+            programRepo.save(program);
             printInfo("New Program registered in database.");
         }
-
-
-        programRepo.customSave(program.getProgramId(), program.getChannel().getId());
-    }
-
-    @Autowired
-    ChannelRepo channelRepo;
-    public void registerChannel(Channel channel) {
-        channelRepo.save(channel);
     }
 
     public List<ScheduleEpisode> getScheduleForProgram(long programId) {
@@ -316,13 +324,23 @@ public class ProgramService {
         List<ScheduleEpisode> channelSchedule = getScheduleByChannel(channel.getId());
         List<ScheduleEpisode> programSchedule = new ArrayList<>();
         for(ScheduleEpisode episode : channelSchedule) {
-            if(episode.getProgram().getProgramId() == programId) {
+            if(episode.getProgram().getId() == programId) {
                 programSchedule.add(episode);
             }
         }
 
         return programSchedule;
     }
+
+    /**
+     * Feeds <code>programs</code> (which come directly from the database) with data from the API.
+     * @return the same list but with objects fetched directly from the API.
+     */
+    public List<Program> feedProgramInfo(List<Program> programs) {
+        for(int i = 0; i < programs.size(); i++) {
+            long hungryProgramId = programs.get(i).getId();
+            programs.set(i, getProgramById(hungryProgramId));
+        }
+        return programs;
+    }
 }
-
-

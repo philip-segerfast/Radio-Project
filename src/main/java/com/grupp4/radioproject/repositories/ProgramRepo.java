@@ -11,9 +11,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public interface ProgramRepo extends JpaRepository<Program, Long> {
 
+    /*
     @Transactional
     @Modifying
     @Query(value = "INSERT INTO programs(program_id, channel_id) VALUES (:program_id, :channel_id)", nativeQuery = true)
     void customSave(@Param("program_id") long programId, @Param("channel_id") long channelId);
+    */
 
 }

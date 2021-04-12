@@ -1,7 +1,6 @@
 package com.grupp4.radioproject.services;
 
 import com.grupp4.radioproject.entities.Channel;
-import com.grupp4.radioproject.entities.ProgramCategory;
 import com.grupp4.radioproject.repositories.ChannelRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +11,6 @@ import java.util.List;
 import java.util.Map;
 
 import static com.grupp4.radioproject.utils.PrintUtils.printDebug;
-import static com.grupp4.radioproject.utils.PrintUtils.printInfo;
 
 @Service
 public class ChannelService {
@@ -58,17 +56,19 @@ public class ChannelService {
 
         return new Channel(channelId, channelName, tagline);
     }
-    public boolean registerChannel(long channelId) {
-        printDebug("PROBLEM HÄR?");
-        if(channelRepo.findById(channelId).isEmpty()) { /////////////////////////////////////////////////////////////// PROBLEM HÄR. FINDBYID FUNKAR EJ!!!!!!!!!!!!!!!!!!
-            printDebug("ELLER INTE?");
-            // Channel doesn't exist in database
-            printInfo("Saving channel...");
-            channelRepo.customSave(channelId);
-            printInfo("New Channel registered in database.");
-            return true;
-        }
-        return false;
-    }
 
+    public Channel registerChannel(Channel channel) {
+        printDebug("Attempting to register channel...");
+        boolean channelIsNotRegistered = channelRepo.findById(channel.getId()).isEmpty();
+        if(channelIsNotRegistered) {
+            printDebug("Channel doesn't exist in database.");
+            // Channel doesn't exist in database
+            printDebug("Saving...");
+            Channel savedChannel = channelRepo.save(channel);
+            printDebug("New Channel registered in database.");
+            return savedChannel;
+        }
+        printDebug("Channel already registered in database.");
+        return null;
+    }
 }

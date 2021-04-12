@@ -11,9 +11,4 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public interface ChannelRepo extends JpaRepository<Channel, Long> {
 
-    @Transactional
-    @Modifying
-    @Query(value = "INSERT INTO channel(channel_id) VALUES (:channel_id)", nativeQuery = true)
-    void customSave(@Param("channel_id") long channelId);
-
 }
