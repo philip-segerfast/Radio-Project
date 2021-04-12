@@ -1,0 +1,214 @@
+<template>
+<h2>Login Sida</h2>
+<button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button>
+  <div id="id01" class="modal">
+  <form class="modal-content animate" @submit.prevent="login" method="post">
+    <div class="imgcontainer">
+      <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+    </div>
+
+    <div class="container">
+      <label for="uname"><b>Username</b></label>
+      <input v-model="username" type="text" placeholder="Enter Username" name="uname" required>
+
+      <label for="psw"><b>Password</b></label>
+      <input v-model="password" type="password" placeholder="Enter Password" name="psw" required>
+      <button @click="login">Login</button>
+      </div>
+      <div class="container" style="background-color:#f1f1f1">
+    </div>
+  </form>
+</div>
+</template>
+
+<script>
+var modal = document.getElementById('id01')
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function (event) {
+  if (event.target === modal) {
+    modal.style.display = 'none'
+  }
+}
+export default {
+  data () {
+    return {
+      username: '',
+      password: ''
+    }
+  },
+  mounted () {
+    console.log('mounted Login')
+  },
+  methods: {
+    logout () {
+      // tell backend to forget us
+      console.log('logout work')
+      fetch('/logout', { mode: 'no-cors' })
+
+      // remove logged in user from store
+      this.$store.commit('setLoggedInUser', null)
+    },
+    async login () {
+      const credentials = 'username=' +
+        encodeURIComponent(this.username) +
+        '&password=' +
+        encodeURIComponent(this.password)
+      this.$router.push('/')
+      const response = await fetch('/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        mode: 'no-cors',
+        body: credentials
+      })
+
+      let user = await fetch('/auth/whoami')
+      console.log(user)
+
+      try {
+        user = await user.json()
+        this.$store.commit('setLoggedInUser', user)
+        console.log(user)
+      } catch {
+        alert('Wrong username/password')
+      }
+    },
+    async register () {
+      const credentials = {
+        username: this.username,
+        password: this.password
+      }
+
+      const response = await fetch('/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(credentials)
+      })
+    }
+
+  }
+}
+</script>
+
+<style scoped>
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+/* Set a style for all buttons */
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 430px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+/* Extra styles for the cancel button */
+.cancelbtn {
+  width: auto;
+  padding: 10px 18px;
+  background-color: #f44336;
+}
+
+/* Center the image and position the close button */
+.imgcontainer {
+  text-align: center;
+  margin: 24px 0 12px 0;
+  position: relative;
+}
+
+img.avatar {
+  width: 40%;
+  border-radius: 50%;
+}
+
+.container {
+  padding: 16px;
+}
+
+span.psw {
+  float: right;
+  padding-top: 16px;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  padding-top: 60px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button (x) */
+.close {
+  position: absolute;
+  right: 25px;
+  top: 0;
+  color: #000;
+  font-size: 35px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: red;
+  cursor: pointer;
+}
+
+/* Add Zoom Animation */
+.animate {
+  -webkit-animation: animatezoom 0.6s;
+  animation: animatezoom 0.6s
+}
+
+@-webkit-keyframes animatezoom {
+  from {-webkit-transform: scale(0)}
+  to {-webkit-transform: scale(1)}
+}
+
+@keyframes animatezoom {
+  from {transform: scale(0)}
+  to {transform: scale(1)}
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+  span.psw {
+     display: block;
+     float: none;
+  }
+  .cancelbtn {
+     width: 100%;
+  }
+}
+
+</style>

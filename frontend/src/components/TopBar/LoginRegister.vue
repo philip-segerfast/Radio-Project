@@ -1,5 +1,7 @@
 <template>
-  <div></div>
+  <nav>
+    <router-link to="/login" tag="button">Sign in</router-link>
+  </nav>
 </template>
 
 <script>

@@ -25,7 +25,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/rest/**").authenticated()
                 .and()
                 .formLogin()
-//        .loginPage("/login") // our custom login page
+                .loginPage("/login") // our custom login page
         ;
     }
 
