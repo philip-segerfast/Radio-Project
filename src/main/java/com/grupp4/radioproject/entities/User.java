@@ -2,6 +2,7 @@ package com.grupp4.radioproject.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnoreType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.context.ApplicationContext;
 
@@ -25,13 +26,23 @@ public class User {
             joinColumns = @JoinColumn(name = "target_user_id"),
             inverseJoinColumns = @JoinColumn(name = "destination_user_id")
     )
-    @JsonIgnoreProperties("friends")
     private List<User> friends;
 
-    @OneToMany
-    //@JsonIgnoreProperties("programFavourites")
-    @JsonIgnore
+    @ManyToMany
+    @JoinTable(
+            name = "program_favourites",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "program_id")
+    )
     private List<Program> programFavourites;
+
+    @ManyToMany
+    @JoinTable(
+            name = "episode_favourites",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "episode_id")
+    )
+    private List<Episode> episodeFavourites;
 
     public User() {}
 
@@ -49,10 +60,11 @@ public class User {
         this.programFavourites = programFavourites;
     }
 
+    @JsonIgnore
     public List<User> getFriends() {
         return friends;
     }
-
+    @JsonProperty
     public void setFriends(List<User> friends) {
         this.friends = friends;
     }
@@ -66,34 +78,45 @@ public class User {
     public String getPassword() {
         return password;
     }
-
     @JsonProperty
     public void setPassword(String password) {
         this.password = password;
     }
 
+    @JsonProperty
     public long getId() {
         return id;
     }
-
+    @JsonProperty
     public void setId(long id) {
         this.id = id;
     }
 
+    @JsonProperty
     public String getUsername() {
         return username;
     }
-
+    @JsonProperty
     public void setUsername(String username) {
         this.username = username;
     }
 
+    @JsonProperty
     public List<Program> getProgramFavourites() {
         return programFavourites;
     }
-
+    @JsonProperty
     public void setProgramFavourites(List<Program> programFavourites) {
         this.programFavourites = programFavourites;
+    }
+
+    @JsonProperty
+    public List<Episode> getEpisodeFavourites() {
+        return episodeFavourites;
+    }
+    @JsonProperty
+    public void setEpisodeFavourites(List<Episode> episodeFavourites) {
+        this.episodeFavourites = episodeFavourites;
     }
 
     @Override
@@ -102,6 +125,8 @@ public class User {
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
+                ", friends=" + friends +
+                ", programFavourites=" + programFavourites +
                 '}';
     }
 }

@@ -3,6 +3,8 @@ package com.grupp4.radioproject.services;
 import com.grupp4.radioproject.entities.ProgramCategory;
 import com.grupp4.radioproject.entities.Channel;
 import com.grupp4.radioproject.entities.Program;
+import com.grupp4.radioproject.repositories.ProgramCategoryRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -12,6 +14,9 @@ import java.util.Map;
 
 @Service
 public class ProgramCategoryService {
+
+    @Autowired
+    ProgramCategoryRepo programCategoryRepo;
 
     public List<ProgramCategory> getAllCategories() {
         RestTemplate template = new RestTemplate();
@@ -32,6 +37,10 @@ public class ProgramCategoryService {
         }
 
         return programCategories;
+    }
+
+    public ProgramCategory registerProgramCategory(ProgramCategory programCategory) {
+        return programCategoryRepo.save(programCategory);
     }
 
 }

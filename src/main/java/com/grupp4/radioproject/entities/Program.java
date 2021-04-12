@@ -5,42 +5,40 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "programs")
-@JsonIgnoreProperties(value = {"name", "channel", "description"}, allowGetters = true)
 public class Program {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long programId;
+    @Column(name = "program_id")
+    private long id;
 
+    @Transient
     private String name;
 
-    @ManyToOne
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "channel_id")
+    @JsonIgnoreProperties({"programs", "tagline"})
     private Channel channel;
 
+    @Transient
     private String description;
 
-    @ManyToOne
-    @JsonIgnore
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "category_id")
     private ProgramCategory programCategory;
 
-    public Program(long programId, String name) {
-        this.programId = programId;
-        this.name = name;
+    public Program(long id, String name) {
+        this(id, name, null, "Unavailable");
     }
 
     public Program(long id, String name, Channel channel, String description) {
-        this.programId = id;
-        this.name = name;
-        this.channel = channel;
-        this.description = description;
+        this(id, name, channel, description, null);
     }
 
-    public Program(long programId, String name, Channel channel, String description, ProgramCategory programCategory) {
-        this.programId = programId;
+    public Program(long id, String name, Channel channel, String description, ProgramCategory programCategory) {
+        this.id = id;
         this.name = name;
         this.channel = channel;
         this.description = description;
@@ -49,11 +47,13 @@ public class Program {
 
     public Program() { }
 
-    public long getProgramId() {
-        return programId;
+    @JsonProperty
+    public long getId() {
+        return id;
     }
-    public void setProgramId(long programId) {
-        this.programId = programId;
+    @JsonProperty
+    public void setId(long programId) {
+        this.id = programId;
     }
 
     @JsonProperty
@@ -69,7 +69,7 @@ public class Program {
     public Channel getChannel() {
         return channel;
     }
-    @JsonIgnore
+    @JsonProperty
     public void setChannel(Channel channel) {
         this.channel = channel;
     }
@@ -87,16 +87,15 @@ public class Program {
     public ProgramCategory getProgramCategory() {
         return programCategory;
     }
-    @JsonIgnore
+    @JsonProperty
     public void setProgramCategory(ProgramCategory programCategory) {
         this.programCategory = programCategory;
     }
 
-
     @Override
     public String toString() {
         return "Program{" +
-                "programId=" + programId +
+                "programId=" + id +
                 ", name='" + name + '\'' +
                 ", channel=" + channel +
                 ", description='" + description + '\'' +
