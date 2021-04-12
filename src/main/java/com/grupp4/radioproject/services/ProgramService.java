@@ -333,7 +333,7 @@ public class ProgramService {
     }
 
     /**
-     * Feeds <code>programs</code> (which come directly from the database) with data from the API.
+     * Feeds <code>programs</code> (which comes directly from the database) with data from the API.
      * @return the same list but with objects fetched directly from the API.
      */
     public List<Program> feedProgramInfo(List<Program> programs) {
