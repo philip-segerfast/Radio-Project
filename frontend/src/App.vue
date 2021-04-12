@@ -1,6 +1,7 @@
 <template>
   <div id="app-container">
     <TopBar />
+    <CategoryList />
     <router-view />
   </div>
 </template>

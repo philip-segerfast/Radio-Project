@@ -1,20 +1,13 @@
 import { createStore } from 'vuex'
-
-const actions = {
-  async actionWithValue (store, data) {
-    console.log(data)
-
-    // await fetch data from backend
-    // store.commit('setData', data)
-  }
-}
+import axios from 'axios'
 
 export default createStore({
   state: {
     episodes: String,
     loggedInUser: null,
     clickedProgram: null,
-    programs: null
+    programs: null,
+    categories: []
   },
 
   mutations: {
@@ -29,11 +22,26 @@ export default createStore({
     },
     setPrograms (state, payload) {
       state.programs = payload
+    },
+    setCategories (state, payload) {
+      state.categories = payload
     }
 
   },
 
   actions: {
+    async fetchUsers () {
+      await axios.get('rest/categories')
+        .then(response => {
+          this.commit('setUsers', response.data)
+        })
+    }
+  },
+
+  getters: {
+    getCategories (state) {
+      return state.categories
+    }
   },
 
   modules: {
