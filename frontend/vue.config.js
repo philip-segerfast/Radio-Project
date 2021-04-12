@@ -4,18 +4,6 @@ module.exports = {
   devServer: {
     port: 3000,
     proxy: {
-      '/api': {
-        target: 'http://localhost:5000',
-        ws: true,
-        changeOrigin: true,
-        secure: false
-      },
-      '/rest': {
-        target: 'http://localhost:5000',
-        ws: true,
-        changeOrigin: true,
-        secure: false
-      },
       '/auth': {
         target: 'http://localhost:5000',
         ws: true,
@@ -29,6 +17,18 @@ module.exports = {
         secure: false
       },
       '/logout': {
+        target: 'http://localhost:5000',
+        ws: true,
+        changeOrigin: true,
+        secure: false
+      },
+      '/api': {
+        target: 'http://localhost:5000',
+        ws: true,
+        changeOrigin: true,
+        secure: false
+      },
+      '/rest': {
         target: 'http://localhost:5000',
         ws: true,
         changeOrigin: true,

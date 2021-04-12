@@ -38,7 +38,7 @@ export default {
 #app-container {
   display: flex;
   justify-content: center;
-  padding: 1%;
+  padding: 1% 20%;
   background-color: orangered;
   min-height: 100vh;
   font-family: Avenir, Helvetica, Arial, sans-serif;

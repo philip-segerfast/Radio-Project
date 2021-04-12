@@ -16,13 +16,24 @@ import ProgramInfo from '../components/ProgramInfo'
 export default {
   data () {
     return {
-      program: null
+      program: ''
     }
   },
-  mounted () {
-    // 1. Get program with ID of param.
-    // 2. Set data variable to the program.
+
+  async mounted () {
+    const programId = this.$route.params.programId
+    try {
+      const response = await fetch('/rest/programs/' + programId)
+      this.program = await response.json()
+    } catch {
+      alert('Ogiltigt program. Prova med ett annat ID.')
+      this.program = {
+        name: 'Inget',
+        description: 'nada'
+      }
+    }
   },
+
   components: {
     EpisodeList,
     ProgramInfo
@@ -33,14 +44,16 @@ export default {
 <style scoped>
 #programs-container {
   display: flex;
+  width: 100%;
   flex-direction: column;
   align-items: center;
   background-color: tomato;
 }
 
 #program-info {
-  width: 70%;
+  width: 100%;
   height: min-content;
+  margin-bottom: var(--medium-padding);
 }
 
 #program-list {

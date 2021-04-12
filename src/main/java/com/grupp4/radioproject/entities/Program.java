@@ -27,8 +27,6 @@ public class Program {
     @JsonIgnore
     private ProgramCategory programCategory;
 
-    private Program() {}
-
     public Program(long programId, String name) {
         this.programId = programId;
         this.name = name;
@@ -48,6 +46,8 @@ public class Program {
         this.description = description;
         this.programCategory = programCategory;
     }
+
+    public Program() { }
 
     public long getProgramId() {
         return programId;

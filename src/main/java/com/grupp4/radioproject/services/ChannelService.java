@@ -34,4 +34,20 @@ public class ChannelService {
         return channels;
     }
 
+    public Channel getChannelById(long id) {
+        RestTemplate template = new RestTemplate();
+        String URL = String.format("http://api.sr.se/api/v2/channels/%d?format=json", id);
+        Map response = template.getForObject(URL, Map.class);
+
+        Map channelMap = (Map) response.get("channel");
+
+        if(channelMap == null)
+            return null;
+
+        long channelId = Integer.parseInt(channelMap.get("id").toString());
+        String channelName = channelMap.get("name").toString();
+        String tagline = channelMap.get("tagline").toString();
+
+        return new Channel(channelId, channelName, tagline);
+    }
 }
