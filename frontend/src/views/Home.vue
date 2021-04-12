@@ -3,9 +3,6 @@
     <p>Hello</p>
   </div>
 
-  <div class="button-block">
-          <button class="button is-xl is-dark">Sign In to Browse Favourites</button>
-        </div>
 </template>
 
 <script>
