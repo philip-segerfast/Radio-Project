@@ -1,0 +1,41 @@
+Data:
+
+Program ID:s
+Has program categories
+94
+178
+179
+185
+229
+233
+989
+
+Episode ID:s
+1687884
+1687883
+1687882
+
+Channel ID:s
+132
+163
+164
+213
+223
+205
+
+
+User stories:
+Get All Channels
+Get Schedule for channel (for a certain day)
+Get all Programs For Channel
+Get all Categories
+Get all programs in category
+Search for programs
+Get Program By ID
+See when a program is transmitted (INTE KLAR/SEBASTIAN)
+Register account
+Login
+Favorite Programs and Transmissions
+Get List of favourites
+Remove and add friends
+Share programs and transmissions

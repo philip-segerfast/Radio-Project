@@ -25,16 +25,20 @@ public class Channel {
     @Transient
     private String tagline;
 
+    @Transient
+    private String imageUrl;
+
     public Channel() { }
 
     public Channel(long id, String channelName) {
-        this(id, channelName, "ej tillgängligt");
+        this(id, channelName, "ej tillgängligt", "https://nordeniskolen.org/media/1886/radio-norden-v2.gif");
     }
 
-    public Channel(long id, String name, String tagline) {
+    public Channel(long id, String name, String tagline, String imageUrl) {
         this.id = id;
         this.name = name;
         this.tagline = tagline;
+        this.imageUrl = imageUrl;
     }
 
     public long getId() {
@@ -52,6 +56,15 @@ public class Channel {
     @JsonProperty
     public void setName(String name) {
         this.name = name;
+    }
+
+    @JsonProperty
+    public String getImageUrl() {
+        return imageUrl;
+    }
+    @JsonIgnore
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     @JsonIgnore

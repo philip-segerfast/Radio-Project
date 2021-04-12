@@ -1,6 +1,6 @@
 <template>
   <div id="channel-info-container" class="one-edge-shadow">
-    <div id="header"> {{ channel.channelName }} </div>
+    <div id="header"> {{ channel.name }} </div>
     <div id="left-box">
       <div id="description" class="selectable">
         {{ channel.tagline }}
@@ -15,7 +15,7 @@
       </div>
     </div>
     <div id="right-box">
-      <img src="https://static-cdn.sr.se/images/114/b3c02693-d242-405f-920d-9607396bd8b8.jpg?preset=api-default-square">
+      <img :src="channel.imageUrl">
     </div>
   </div>
 </template>

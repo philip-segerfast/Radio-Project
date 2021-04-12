@@ -28,8 +28,8 @@ export default {
     } catch {
       alert('Ogiltigt program. Prova med ett annat ID.')
       this.program = {
-        name: 'Inget',
-        description: 'nada'
+        name: 'Otillgängligt',
+        description: 'Otillgängligt'
       }
     }
   },

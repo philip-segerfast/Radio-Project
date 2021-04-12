@@ -16,7 +16,7 @@ const routes = [
     component: Login
   },
   {
-    path: '/programs/:channelId',
+    path: '/channels/:channelId',
     name: 'Channel',
     component: Channel
   },
