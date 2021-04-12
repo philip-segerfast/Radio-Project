@@ -1,8 +1,11 @@
 <template>
-  <div id="episode-list-container">Episode list
-    <ol>
-      <li v-for="(episode, i) in episodes" :key="i"> {{  }} </li>
-    </ol>
+  <div id="episode-list-container" class="selectable">Episode list
+    <ul>
+      <li v-for="(episode, i) in episodes" :key="i"> <b> {{ episode.name }} </b>
+        <br> {{ episode.description }}
+        <br> {{ episode.publishdateutc }}
+        <br> {{ episode.url }} </li>
+    </ul>
   </div>
 </template>
 
@@ -15,7 +18,6 @@ export default {
   data () {
     return {
       id: null,
-      episode: '',
       episodes: []
     }
   },
@@ -24,8 +26,9 @@ export default {
     const programId = this.$route.params.programId
     try {
       const response = await fetch('/rest/episodes/' + programId)
-      const episode = await response.json()
-      console.log(episode)
+      const episodes = await response.json()
+      this.episodes = episodes
+      console.log(episodes)
     } catch {
       alert('Ogiltigt program. Prova med ett annat ID.')
     }
