@@ -4,7 +4,7 @@
       <ProgramInfo :program="program" />
     </div>
     <div id="program-list">
-      <EpisodeList :episode="program"/>
+      <EpisodeList />
     </div>
   </div>
 </template>

@@ -3,6 +3,7 @@ import Home from '../views/Home.vue'
 import Channel from '../views/Channel.vue'
 import Program from '../views/Program.vue'
 import Login from '../views/Login.vue'
+import ProgramCategories from '../views/ProgramCategories.vue'
 
 const routes = [
   {
@@ -24,6 +25,11 @@ const routes = [
     path: '/program/:programId',
     name: 'Program',
     component: Program
+  },
+  {
+    path: '/programs/category',
+    name: 'ProgramCategories',
+    component: ProgramCategories
   }
 ]
 
