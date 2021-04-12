@@ -1,8 +1,8 @@
 <template>
   <div>
       <select v-model="selectedCategory" name="categories" id="categories">
-          <option v-for="(category, categoryIndex) in getCategories" :key="categoryIndex" :value="category.id">
-              {{  }}
+          <option v-for="(category, i) in categories" :key="i">
+              {{ category.name }}
           </option>
       </select>
   </div>
@@ -10,16 +10,17 @@
 
 <script>
 export default {
-  name: 'CategoryList',
-
-  computed: {
-    getCategories () {
-      return this.$store.getters.getUsers
+  data () {
+    return {
+      categories: []
     }
   },
 
-  mounted () {
-    this.$store.dispatch('fetchCategories')
+  async mounted () {
+    const response = await fetch('/rest/categories')
+    const categories = await response.json()
+    this.categories = categories
+    console.log(categories)
   }
 }
 </script>
