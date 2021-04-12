@@ -11,6 +11,21 @@ import TopBar from './components/TopBar/TopBar.vue'
 export default {
   components: {
     TopBar
+  },
+
+  async mounted () {
+    let user = await fetch('/auth/whoami')
+    try {
+      user = await user.json()
+      this.$store.commit('setLoggedInUser', user)
+      console.log(user)
+    } catch {
+      console.log('Not logged in')
+    }
+
+    const channelID = 123
+
+    this.$store.dispatch('actionWithValue', channelID)
   }
 }
 

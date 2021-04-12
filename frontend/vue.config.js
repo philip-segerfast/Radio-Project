@@ -33,6 +33,12 @@ module.exports = {
         ws: true,
         changeOrigin: true,
         secure: false
+      },
+      '/auth/register': {
+        target: 'http://localhost:5000',
+        ws: true,
+        changeOrigin: true,
+        secure: false
       }
     }
   }
