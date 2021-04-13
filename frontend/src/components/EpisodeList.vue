@@ -12,7 +12,6 @@
 <script>
 export default {
   props: ['program'],
-
   name: 'EpisodeList',
 
   data () {
@@ -38,7 +37,10 @@ export default {
 
 <style scoped>
 #episode-list-container {
-  border: 1px solid black;
+  border-radius: inherit;
   height: 100%;
+  background-color: var(--background-darker);
+  border: 1px solid black;
+  padding: var(--medium-padding);
 }
 </style>

@@ -19,7 +19,7 @@ const routes = [
     component: Login
   },
   {
-    path: '/channel/:channelId',
+    path: '/channels/:channelId',
     name: 'Channel',
     component: Channel
   },
