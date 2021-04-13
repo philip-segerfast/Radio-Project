@@ -14,7 +14,7 @@ public class ChannelService {
 
     public List<Channel> getAllChannels() {
         RestTemplate template = new RestTemplate();
-        String URL = "http://api.sr.se/api/v2/channels?format=json";
+        String URL = "http://api.sr.se/api/v2/channels?format=json&pagination=false";
         Map response = template.getForObject(URL, Map.class);
 
         List<Map> channelsMap = (List<Map>) response.get("channels");
