@@ -36,9 +36,6 @@ export default createStore({
 
   },
 
-  getters: {
-  },
-
   modules: {
   }
 })
