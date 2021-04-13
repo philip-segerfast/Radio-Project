@@ -1,20 +1,11 @@
 import { createStore } from 'vuex'
 
-const actions = {
-  async actionWithValue (store, data) {
-    console.log(data)
-
-    // await fetch data from backend
-    // store.commit('setData', data)
-  }
-}
-
 export default createStore({
   state: {
-    episodes: String,
     loggedInUser: null,
     clickedProgram: null,
-    programs: null
+    programs: null,
+    selectedCategory: 'unselected'
   },
 
   mutations: {
@@ -29,11 +20,20 @@ export default createStore({
     },
     setPrograms (state, payload) {
       state.programs = payload
+    },
+    setSelectedCategory (state, payload) {
+      state.selectedCategory = payload
     }
+  },
 
+  getters: {
+    getSelectedCategory: state => {
+      return state.selectedCategory
+    }
   },
 
   actions: {
+
   },
 
   modules: {

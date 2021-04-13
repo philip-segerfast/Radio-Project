@@ -20,4 +20,9 @@ public class EpisodeController {
     public List<Episode> getEpisodesListByProgram(@PathVariable long programId) {
         return episodeService.getEpisodesListByProgram(programId);
     }
+
+    @GetMapping("/rest/episodes/id/{episodeId}")
+    public Episode getEpisodeById(@PathVariable long episodeId) {
+        return episodeService.getEpisodeById(episodeId);
+    }
 }

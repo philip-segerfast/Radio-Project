@@ -1,6 +1,7 @@
 package com.grupp4.radioproject.controllers;
 
 import com.grupp4.radioproject.configurations.MyUserDetailsService;
+import com.grupp4.radioproject.entities.Episode;
 import com.grupp4.radioproject.entities.Program;
 import com.grupp4.radioproject.entities.User;
 import com.grupp4.radioproject.services.UserService;
@@ -58,20 +59,28 @@ public class UserController {
         return userService.deleteFriend(id);
     }
 
-    @PostMapping("/rest/user/add-programfavourite/{id}")
+    @PutMapping("/rest/user/add-program-favourite/{id}")
     public boolean addProgramFavourite(@PathVariable long id) {
-        userService.addProgramFavourite(id);
-        return true;
-    }
-
-    @GetMapping("/rest/user/friends")
-    public List<User> getFriends() {
-        return userService.getFriends();
+        return userService.addProgramFavourite(id);
     }
 
     @GetMapping("/rest/program-favourites")
     public List<Program> getProgramFavourites() {
         return userService.getProgramFavourites();
     }
-}
 
+    @PutMapping("/rest/user/add-episode-favourite/{id}")
+    public boolean addEpisodeFavourite(@PathVariable long id) {
+        return userService.addEpisodeFavourite(id);
+    }
+
+    @GetMapping("/rest/episode-favourites")
+    public List<Episode> getEpisodeFavourites() {
+        return userService.getEpisodeFavourites();
+    }
+
+    @GetMapping("/rest/user/friends")
+    public List<User> getFriends() {
+        return userService.getFriends();
+    }
+}

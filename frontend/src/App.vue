@@ -24,8 +24,6 @@ export default {
     }
 
     const channelID = 123
-
-    this.$store.dispatch('actionWithValue', channelID)
   }
 }
 
