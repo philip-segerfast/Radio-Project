@@ -1,7 +1,11 @@
 <template>
   <div id="app-container">
+    <div class="topbar-grid">
     <TopBar />
-    <router-view />
+    </div>
+    <div class="program-grid">
+      <router-view />
+    </div>
   </div>
 </template>
 
@@ -35,7 +39,8 @@ export default {
 <style scoped>
 #app-container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   padding: 1% 20%;
   background-color: var(--main-background-color);
   min-height: 100vh;
@@ -58,4 +63,5 @@ export default {
 #nav a.router-link-exact-active {
   color: #42b983;
 }
+
 </style>

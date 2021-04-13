@@ -3,7 +3,7 @@
 <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button>
   <div id="id01" class="modal">
   <form class="modal-content animate" @submit.prevent="login" method="post">
-    <div class="imgcontainer">
+    <div>
       <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
     </div>
 
@@ -14,6 +14,7 @@
       <label for="psw"><b>Password</b></label>
       <input v-model="password" type="password" placeholder="Enter Password" name="psw" required>
       <button @click="login">Login</button>
+      <button @click="register">Register</button>
       </div>
       <div class="container" style="background-color:#f1f1f1">
     </div>
@@ -80,12 +81,12 @@ export default {
         username: this.username,
         password: this.password
       }
-
       const response = await fetch('/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(credentials)
       })
+      this.$router.push('/')
     }
 
   }
@@ -106,8 +107,8 @@ input[type=text], input[type=password] {
 button {
   background-color: #4CAF50;
   color: white;
-  padding: 14px 20px;
-  margin: 430px 0;
+  padding: 14px 50px;
+  margin: 20px 15px;
   border: none;
   cursor: pointer;
   width: 100%;
