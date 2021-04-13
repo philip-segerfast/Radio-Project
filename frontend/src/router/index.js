@@ -5,6 +5,7 @@ import Program from '../views/Program.vue'
 import SearchView from '../views/SearchView'
 import Login from '../views/Login.vue'
 import ProgramCategories from '../views/ProgramCategories.vue'
+import Tableau from '../views/Tableau'
 
 const routes = [
   {
@@ -18,7 +19,7 @@ const routes = [
     component: Login
   },
   {
-    path: '/programs/:channelId',
+    path: '/channel/:channelId',
     name: 'Channel',
     component: Channel
   },
@@ -36,6 +37,11 @@ const routes = [
     path: '/programs/category',
     name: 'ProgramCategories',
     component: ProgramCategories
+  },
+  {
+    path: '/channel/:channelId/tableau',
+    name: 'Tableau',
+    component: Tableau
   }
 ]
 
