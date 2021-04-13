@@ -1,10 +1,10 @@
 <template>
-  <div id="programs-container">
-    <div id="program-info">
+  <div class="radio-page-container">
+    <div class="radio-topper-container">
       <ProgramInfo :program="program" />
     </div>
-    <div id="program-list">
-      <EpisodeList :episode="program"/>
+    <div class="radio-items-container">
+      <EpisodeList :program="program"/>
     </div>
   </div>
 </template>
@@ -40,24 +40,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-#programs-container {
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-  align-items: center;
-  background-color: tomato;
-}
-
-#program-info {
-  width: 100%;
-  height: min-content;
-  margin-bottom: var(--medium-padding);
-}
-
-#program-list {
-  height: 100%;
-  width: 100%;
-}
-</style>

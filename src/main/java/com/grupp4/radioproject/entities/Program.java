@@ -2,6 +2,7 @@ package com.grupp4.radioproject.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import static com.grupp4.radioproject.api.ApiCommon.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -29,20 +30,24 @@ public class Program {
     @JoinColumn(name = "category_id")
     private ProgramCategory programCategory;
 
+    @Transient
+    private String programImage;
+
     public Program(long id, String name) {
         this(id, name, null, "Unavailable");
     }
 
     public Program(long id, String name, Channel channel, String description) {
-        this(id, name, channel, description, null);
+        this(id, name, channel, description, null, DEFAULT_IMAGE);
     }
 
-    public Program(long id, String name, Channel channel, String description, ProgramCategory programCategory) {
+    public Program(long id, String name, Channel channel, String description, ProgramCategory programCategory, String programImage) {
         this.id = id;
         this.name = name;
         this.channel = channel;
         this.description = description;
         this.programCategory = programCategory;
+        this.programImage = programImage;
     }
 
     public Program() { }
@@ -90,6 +95,15 @@ public class Program {
     @JsonProperty
     public void setProgramCategory(ProgramCategory programCategory) {
         this.programCategory = programCategory;
+    }
+
+    @JsonProperty
+    public String getProgramImage() {
+        return programImage;
+    }
+    @JsonIgnore
+    public void setProgramImage(String programImage) {
+        this.programImage = programImage;
     }
 
     @Override

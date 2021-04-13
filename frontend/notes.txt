@@ -23,7 +23,6 @@ Channel ID:s
 223
 205
 
-
 User stories:
 Get All Channels
 Get Schedule for channel (for a certain day)

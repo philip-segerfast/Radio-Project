@@ -1,14 +1,5 @@
 import { createStore } from 'vuex'
 
-const actions = {
-  async actionWithValue (store, data) {
-    console.log(data)
-
-    // await fetch data from backend
-    // store.commit('setData', data)
-  }
-}
-
 export default createStore({
   state: {
     episodes: String,
