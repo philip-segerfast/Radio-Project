@@ -2,7 +2,7 @@
 <div id="channels" class="dropdown">
   <button class="dropbtn">Dropdown</button>
   <div class="dropdown-content">
-    <a href="#" v-for="(channel, i) in channels" :key="i" v-on:click="this.$router.push('/programs/'+ channel.id)">{{ channel.channelName }}</a>
+    <a href="#" v-for="(channel, i) in channels" :key="i" v-on:click="this.$router.push('/programs/'+ channel.id)">{{ channel.name }}</a>
 </div>
 </div>
 </template>
@@ -20,9 +20,7 @@ export default {
     const channelId = this.$route.params.channelId
     const channelsResponse = await fetch('/rest/channels')
     this.channels = await channelsResponse.json()
-
-    const programsResponse = await fetch(`/rest/programs/channel/${channelId}`)
-    this.programs = await programsResponse.json()
+    console.log(this.channels)
   }
 }
 </script>

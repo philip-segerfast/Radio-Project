@@ -1,6 +1,6 @@
 <template>
   <div id="channel-info-container" class="one-edge-shadow">
-    <div id="header"> {{ channel.channelName }} </div>
+    <div id="header"> {{ channel.name }} </div>
     <div id="left-box">
       <div id="description" class="selectable">
         {{ channel.tagline }}

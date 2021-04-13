@@ -1,13 +1,17 @@
 <template>
-<div>
-  <router-link to="/" tag="button" class="homebtn">Sveriges Radio </router-link>
-  </div>
+<nav id="topbar-container">
   <ul>
+<li class="topbar-item-1">
+  <router-link to="/" tag="button" class="homebtn">Sveriges Radio </router-link>
+  </li>
+  <li class="topbar-item-2">
     <ChannelCarousel />
+  </li>
   </ul>
-  <div>
+  <div class="topbar-item-3">
     <LoginRegister />
   </div>
+</nav>
 </template>
 
 <script>
@@ -38,6 +42,25 @@ export default {
 </script>
 
 <style scoped>
+ul {
+  list-style: none;
+  display: flex;
+}
+ul li a {
+  padding: 1.6 rem;
+}
+#topbar-container {
+  background:brown;
+  display: flex;
+  height: 100px;
+  }
+.topbar-item-1 {
+ justify-self: auto;
+}
+.container {
+  display: grid;
+  grid-template-columns: 30fr 20fr;
+}
 .homebtn {
   background-color: #4CAF50;
   color: white;
