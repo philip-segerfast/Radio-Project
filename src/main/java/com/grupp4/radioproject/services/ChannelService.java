@@ -33,7 +33,8 @@ public class ChannelService {
             long channelId = Integer.parseInt(channelMap.get("id").toString());
             String channelName = channelMap.get("name").toString();
             String tagline = channelMap.get("tagline").toString();
-            Channel channel = new Channel(channelId, channelName, tagline);
+            String imageUrl = channelMap.get("image").toString();
+            Channel channel = new Channel(channelId, channelName, tagline, imageUrl);
             channels.add(channel);
         }
 
@@ -53,8 +54,9 @@ public class ChannelService {
         long channelId = Integer.parseInt(channelMap.get("id").toString());
         String channelName = channelMap.get("name").toString();
         String tagline = channelMap.get("tagline").toString();
+        String imageUrl = channelMap.get("image").toString();
 
-        return new Channel(channelId, channelName, tagline);
+        return new Channel(channelId, channelName, tagline, imageUrl);
     }
 
     public Channel registerChannel(Channel channel) {

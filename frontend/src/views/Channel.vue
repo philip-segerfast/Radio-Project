@@ -1,10 +1,10 @@
 <template>
-  <div id="channels-container">
-    <div id="channel-info">
+  <div class="radio-page-container">
+    <div class="radio-topper-container">
       <ChannelInfo :channel="channel" />
     </div>
-    <div id="program-list">
-      <ProgramList />
+    <div class="radio-items-container">
+      <ProgramList :programs="programs" />
     </div>
   </div>
 </template>
@@ -16,7 +16,8 @@ import ProgramList from '../components/ProgramList/ProgramList.vue'
 export default {
   data () {
     return {
-      channel: ''
+      channel: '',
+      programs: ''
     }
   },
   components: {
@@ -24,30 +25,23 @@ export default {
     ProgramList
   },
   async mounted () {
-    const channelId = this.$route.params.channelId
-    const response = await fetch('/rest/channels/' + channelId)
-    this.channel = await response.json()
+    await this.fetchChannel()
+    await this.fetchPrograms()
+  },
+  methods: {
+    async fetchChannel () {
+      const channelId = this.$route.params.channelId
+      const channelResponse = await fetch('/rest/channels/' + channelId)
+      this.channel = await channelResponse.json()
+    },
+    async fetchPrograms () {
+      const channelId = this.$route.params.channelId
+      const programsResponse = await fetch(`/rest/programs/channel/${channelId}`)
+      this.programs = await programsResponse.json()
+    }
   }
 }
 </script>
 
 <style scoped>
-#channels-container {
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-  align-items: center;
-  background-color: tomato;
-}
-
-#channel-info {
-  width: 100%;
-  height: min-content;
-  margin-bottom: var(--medium-padding);
-}
-
-#program-list {
-  height: 100%;
-  width: 100%;
-}
 </style>

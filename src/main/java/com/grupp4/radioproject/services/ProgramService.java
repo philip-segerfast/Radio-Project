@@ -107,6 +107,7 @@ public class ProgramService {
             long programId = Integer.parseInt(programMap.get("id").toString());
             String programName = programMap.get("name").toString();
             String programDescription = programMap.get("description").toString();
+            String programImage = programMap.get("programimage").toString();
 
             Map channelMap = (Map) programMap.get("channel");
             long channelId = Integer.parseInt(channelMap.get("id").toString());
@@ -122,7 +123,7 @@ public class ProgramService {
             }
 
             Channel channel = new Channel(channelId, channelName);
-            Program program = new Program(programId, programName, channel, programDescription, category);
+            Program program = new Program(programId, programName, channel, programDescription, category, programImage);
 
             programs.add(program);
         }
@@ -132,7 +133,7 @@ public class ProgramService {
 
     public List<Program> getProgramsByChannel(long id) {
         RestTemplate template = new RestTemplate();
-        String URL = "http://api.sr.se/api/v2/programs/index?format=json&channelid=";
+        String URL = "http://api.sr.se/api/v2/programs/index?format=json&pagination=false&channelid=";
         Map response = template.getForObject(URL + id, Map.class);
 
         List<Map> programsMap = (List<Map>) response.get("programs");
@@ -163,28 +164,29 @@ public class ProgramService {
         String URL = "http://api.sr.se/api/v2/programs/index?format=json&pagination=false&programcategoryid=";
         var response = template.getForObject(URL + id, Map.class);
 
-        List<Map> categoriesMap = (List<Map>) response.get("programs");
+        List<Map> programsMap = (List<Map>) response.get("programs");
         List<Program> programs = new ArrayList<>();
 
-        if(categoriesMap == null)
+        if(programsMap == null)
             return null;
 
-        for(Map categoryMap : categoriesMap) {
-            long programId = Long.parseLong(categoryMap.get("id").toString());
-            String programName = categoryMap.get("name").toString();
-            String programDescription = categoryMap.get("description").toString();
+        for(Map programMap : programsMap) {
+            long programId = Long.parseLong(programMap.get("id").toString());
+            String programName = programMap.get("name").toString();
+            String programDescription = programMap.get("description").toString();
+            String programImage = programMap.get("programimage").toString();
 
-            Map channelMap = (Map) categoryMap.get("channel");
+            Map channelMap = (Map) programMap.get("channel");
             long channelId = Long.parseLong(channelMap.get("id").toString());
             String channelName = channelMap.get("name").toString();
 
-            Map programCategoryMap = (Map) categoryMap.get("programcategory");
+            Map programCategoryMap = (Map) programMap.get("programcategory");
             long categoryId = Long.parseLong(programCategoryMap.get("id").toString());
             String categoryName = programCategoryMap.get("name").toString();
 
             Channel channel = new Channel(channelId, channelName);
             ProgramCategory programCategory = new ProgramCategory(categoryId, categoryName);
-            Program program = new Program(programId, programName, channel, programDescription, programCategory);
+            Program program = new Program(programId, programName, channel, programDescription, programCategory, programImage);
 
             programs.add(program);
         }

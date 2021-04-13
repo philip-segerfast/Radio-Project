@@ -42,7 +42,7 @@ export default {
   flex-direction: column;
   align-items: center;
   padding: 1% 20%;
-  background-color: orangered;
+  background-color: var(--main-background-color);
   min-height: 100vh;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

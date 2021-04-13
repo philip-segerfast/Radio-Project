@@ -1,5 +1,6 @@
 <template>
-<nav id="topbar-container">
+  <div>
+  <nav id="topbar-container">
   <ul>
 <li class="topbar-item-1">
   <router-link to="/" tag="button" class="homebtn">Sveriges Radio </router-link>
@@ -11,12 +12,20 @@
   <div class="topbar-item-3">
     <LoginRegister />
   </div>
+  <div>
+      <SearchBar />
+      </div>
 </nav>
+  </div>
+  <nav>
+    <router-link to="/login" tag="button">Sign in</router-link>
+  </nav>
 </template>
 
 <script>
 import ChannelCarousel from './ChannelCarousel.vue'
 import LoginRegister from './LoginRegister.vue'
+import SearchBar from '../TopBar/SearchBar.vue'
 export default {
   data () {
     return {
@@ -26,7 +35,8 @@ export default {
   name: 'TopBar',
   components: {
     ChannelCarousel,
-    LoginRegister
+    LoginRegister,
+    SearchBar
   },
   methods: {
     logout () {
