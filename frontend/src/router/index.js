@@ -21,7 +21,7 @@ const routes = [
     component: Program
   },
   {
-    path: '/search',
+    path: '/search/:searchString',
     name: 'SearchView',
     component: SearchView
   }

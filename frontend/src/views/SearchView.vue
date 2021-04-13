@@ -1,33 +1,39 @@
 <template>
   <div>
-      <input type="text" placeholder="Sök..." v-model="searchString"/>
-      <button> Search </button>
-      <p> {{ searchString }} </p>
-      <ol v-for="program in getPrograms" :key="program">
-          <li> {{ program.name }} </li>
-      </ol>
+      <ul>
+          <li v-for="(program, i) in programs" :key="i">
+          <b>  {{ program.name }} </b>
+          <br> {{ program.description }}
+          <br> {{ program.channel.channelName }}
+          </li>
+      </ul>
   </div>
 </template>
 
 <script>
+
 export default {
   name: 'SearchView',
 
   data () {
     return {
-      searchString: ''
+      programs: []
     }
   },
 
-  computed: {
-    getPrograms () {
-      return this.$store.getters.getPrograms
-    }
+  async mounted () {
+    console.log(this.$route.params.searchString)
+
+    this.searchString = this.$route.params.searchString
+
+    let programs = await fetch('/rest/programs/search/' + this.searchString)
+    programs = await programs.json()
+    this.programs = programs
+
+    console.log(programs)
   },
 
-  mounted () {
-    this.$store.dispatch('fetchPrograms')
-    console.log()
+  components: {
   }
 }
 </script>
