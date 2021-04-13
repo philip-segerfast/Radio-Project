@@ -1,10 +1,13 @@
 package com.grupp4.radioproject.services;
 
 import com.grupp4.radioproject.configurations.MyUserDetailsService;
+import com.grupp4.radioproject.entities.Channel;
+import com.grupp4.radioproject.entities.Episode;
 import com.grupp4.radioproject.entities.Program;
 import com.grupp4.radioproject.entities.User;
 import com.grupp4.radioproject.repositories.ProgramRepo;
 import com.grupp4.radioproject.repositories.UserRepo;
+import com.grupp4.radioproject.utils.ConsoleColor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -30,10 +33,16 @@ public class UserService {
     private UserRepo userRepo;
 
     @Autowired
-    private ProgramRepo programRepo;
+    private ProgramService programService;
 
     @Autowired
-    private ProgramService programService;
+    private ChannelService channelService;
+
+    @Autowired
+    private EpisodeService episodeService;
+
+    @Autowired
+    private ProgramCategoryService programCategoryService;
 
     @Autowired
     DataSource dataSource;
@@ -109,39 +118,90 @@ public class UserService {
         return loggedUser.getFriends();
     }
 
-    public void addProgramFavourite(long programId) {
-        long loggedUserId = whoAmI().getId();
-        userRepo.saveFavouriteProgram(loggedUserId, programId);
-        Program program = programRepo.findById(programId).orElse(null);
-        if(program != null) {
+    public boolean addProgramFavourite(long programId) {
+        User loggedUser = whoAmI();
+        long loggedUserId = loggedUser.getId();
+        String loggedUserName = loggedUser.getUsername();
+
+        Program program = programService.getProgramById(programId);
+        if(program != null) { ///////////////////////////////// SKA INTE DETTA VARA if(program == null)?
+            channelService.registerChannel(program.getChannel());
+            programCategoryService.registerProgramCategory(program.getProgramCategory());
             programService.registerProgram(program);
+            return registerFavouriteProgram(program, loggedUser);
         } else {
-            printError("Program to add to database didn't exist");
+            printError("Tried to save program that didn't exist in API as favourite for user " + loggedUserName + ".");
         }
+        return false;
+    }
+
+    /**
+     * Registers a program as a favourite.
+     * @return true if new favourite was saved, false if it wasn't saved.
+     */
+    private boolean registerFavouriteProgram(Program program, User user) {
+        if(!doesUserHaveProgramAsFavourite(program)) {
+            // userRepo.saveFavouriteProgram(user.getId(), program.getId());
+            user.getProgramFavourites().add(program);
+            user = userRepo.save(user);
+            printInfo("New Favourite program registered in database for user " + user.getUsername() + ".");
+            return true;
+        }
+        return false;
+    }
+
+    private boolean doesUserHaveProgramAsFavourite(Program program) {
+        List<Program> favourites = getProgramFavourites();
+        for(Program potentialFavourite : favourites) {
+            if(potentialFavourite.getId() == program.getId()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public List<Program> getProgramFavourites() {
         User loggedUser = whoAmI();
-
-        try {
-            Connection conn = DataSourceUtils.doGetConnection(dataSource);
-            PreparedStatement preparedStatement = conn.prepareStatement("SELECT program_id FROM program_favourites WHERE user_id = ?;");
-            preparedStatement.setLong(1, loggedUser.getId());
-            ResultSet res = preparedStatement.executeQuery();
-
-            List<Program> favouritePrograms = new ArrayList<>();
-            while(res.next()) {
-                int programId = res.getInt(1);
-                Program program = programService.getProgramById(programId);
-                favouritePrograms.add(program);
-            }
-            return favouritePrograms;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return null;
+        return programService.feedProgramInfo(loggedUser.getProgramFavourites());
     }
 
+    public boolean addEpisodeFavourite(long episodeId) {
+        User loggedUser = whoAmI();
+
+        Episode episode = episodeService.getEpisodeById(episodeId);
+        if(episode != null) {
+            programService.registerProgram(episode.getProgram());
+            episode = episodeService.registerEpisode(episode);
+            return registerFavouriteEpisode(episode, loggedUser);
+        } else {
+            printError("Tried to save episode that didn't exist in API as favourite for user " + loggedUser.getUsername() + ".");
+        }
+        return false;
+    }
+
+    private boolean registerFavouriteEpisode(Episode episode, User loggedUser) {
+        if(!doesUserHaveEpisodeAsFavourite(episode)) {
+            loggedUser.getEpisodeFavourites().add(episode);
+            loggedUser = userRepo.save(loggedUser);
+            printInfo("New Favourite episode registered in database for user " + loggedUser.getUsername() + ".");
+            return true;
+        }
+
+        return false;
+    }
+
+    private boolean doesUserHaveEpisodeAsFavourite(Episode episode) {
+        List<Episode> favourites = getEpisodeFavourites();
+        for(Episode potentialFavourite : favourites) {
+            if(potentialFavourite.getEpisodeId() == episode.getEpisodeId()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public List<Episode> getEpisodeFavourites() {
+        User loggedUser = whoAmI();
+        return episodeService.feedEpisodeInfo(loggedUser.getEpisodeFavourites());
+    }
 }

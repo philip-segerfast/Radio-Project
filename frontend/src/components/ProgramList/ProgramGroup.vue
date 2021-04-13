@@ -1,5 +1,9 @@
 <template>
-  <div></div>
+  <div id="program-group-container">
+    <div id="scroll">
+      <div v-for="(program, i) in programs" :key="i" :movie="movie" id="program-div"></div>
+    </div>
+  </div>
 </template>
 
 <!--
