@@ -1,6 +1,6 @@
 <template>
-  <div id="channels" class="dropdown">
-    <button class="dropbtn">Kanaler</button>
+  <div class="dropdown">
+    <div class="top-button">Kanaler</div>
     <div class="dropdown-content">
       <div v-for="channel in channels" :key="channel.id" v-on:click="goToChannel(channel)">{{ channel.name }}</div>
     </div>

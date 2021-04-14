@@ -1,19 +1,11 @@
 <template>
-  <div>
-    <nav id="topbar-container">
-      <ul>
-        <li class="topbar-item-1">
-          <router-link to="/" tag="button" class="homebtn"> Sveriges Radio </router-link>
-          <router-link to="/programs/category" tag="button" class="categories"> Kategorier </router-link>
-          <router-link to="/favourites" tag="button" class="favourites"> Favoriter </router-link>
-          <ChannelCarousel />
-        </li>
-        <LoginRegister />
-      </ul>
-    </nav>
-    <div>
-      <SearchBar />
-    </div>
+  <div id="topbar-container">
+    <router-link to="/" class="top-button">Sveriges Radio </router-link>
+    <router-link to="/programs/category" class="top-button">Kategorier </router-link>
+    <router-link to="/favourites" tag="button" class="top-button favourites"> Favoriter </router-link>
+    <ChannelCarousel />
+    <LoginRegister />
+    <SearchBar />
   </div>
 </template>
 
@@ -47,47 +39,17 @@ export default {
 </script>
 
 <style scoped>
-ul {
-  list-style: none;
-  display: flex;
-}
-ul li a {
-  padding: 1.6 rem;
-}
+
 #topbar-container {
   display: flex;
-  height: 100px;
-  }
-.topbar-item-1 {
- justify-self: auto;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid black;
+  background-color: var(--background-darker);
+  border-radius: var(--medium-border-radius);
+  margin-bottom: var(--medium-padding);
 }
 
-.container {
-  display: grid;
-  grid-template-columns: 30fr 20fr;
-}
-.homebtn {
-  background-color: #4CAF50;
-  color: white;
-  padding: 16px;
-  font-size: 16px;
-  border: none;
-  cursor: pointer;
-}
-.categories {
-  background-color: #4CAF50;
-  color: white;
-  padding: 16px;
-  font-size: 16px;
-  border: none;
-  cursor: pointer;
-}
-.favourites {
-  background-color: #4CAF50;
-  color: white;
-  padding: 16px;
-  font-size: 16px;
-  border: none;
-  cursor: pointer;
-}
 </style>
