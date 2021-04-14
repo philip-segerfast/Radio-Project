@@ -2,6 +2,7 @@
   <div id="topbar-container">
     <router-link to="/" class="top-button">Sveriges Radio </router-link>
     <router-link to="/programs/category" class="top-button">Kategorier </router-link>
+    <router-link to="/favourites" tag="button" class="top-button favourites"> Favoriter </router-link>
     <ChannelCarousel />
     <LoginRegister />
     <SearchBar />
