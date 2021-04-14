@@ -2,9 +2,9 @@
   <div>
       <ul>
           <li v-for="(program, i) in programs" :key="i">
-          <b>  {{ program.name }} </b>
+          <b v-on:click="this.$router.push('/program/' + program.id)">  {{ program.name }} </b>
           <br> {{ program.description }}
-          <br> {{ program.channel.channelName }}
+          <br> {{ program.channel.name }}
           </li>
       </ul>
   </div>
@@ -22,8 +22,6 @@ export default {
   },
 
   async mounted () {
-    console.log(this.$route.params.searchString)
-
     this.searchString = this.$route.params.searchString
 
     let programs = await fetch('/rest/programs/search/' + this.searchString)

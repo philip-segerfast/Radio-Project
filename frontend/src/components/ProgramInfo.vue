@@ -6,7 +6,7 @@
         {{ program.description }}
       </div>
       <div class="icon-bar">
-        <div class="share tmp-icon">
+        <div class="share tmp-icon" v-on:click="copyToClipboard">
           Share
         </div>
         <div class="favourite tmp-icon">
@@ -22,6 +22,18 @@
 
 <script>
 export default {
-  props: ['program']
+  props: ['program'],
+
+  methods: {
+    copyToClipboard (text) {
+      var inputc = document.body.appendChild(document.createElement('input'))
+      inputc.value = window.location.href
+      inputc.focus()
+      inputc.select()
+      document.execCommand('copy')
+      inputc.parentNode.removeChild(inputc)
+      alert('URL Copied.')
+    }
+  }
 }
 </script>
