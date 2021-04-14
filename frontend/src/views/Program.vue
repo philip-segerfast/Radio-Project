@@ -4,14 +4,16 @@
       <ProgramInfo :program="program" />
     </div>
     <div class="radio-items-container">
+          <NextEpisode />
       <EpisodeList :program="program"/>
     </div>
   </div>
 </template>
 
 <script>
-import EpisodeList from '../components/EpisodeList.vue'
 import ProgramInfo from '../components/ProgramInfo'
+import NextEpisode from '../components/NextEpisode.vue'
+import EpisodeList from '../components/EpisodeList.vue'
 
 export default {
   data () {
@@ -35,8 +37,9 @@ export default {
   },
 
   components: {
-    EpisodeList,
-    ProgramInfo
+    ProgramInfo,
+    NextEpisode,
+    EpisodeList
   }
 }
 </script>
