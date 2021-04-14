@@ -33,8 +33,15 @@ public class ChannelService {
             long channelId = Integer.parseInt(channelMap.get("id").toString());
             String channelName = channelMap.get("name").toString();
             String tagline = channelMap.get("tagline").toString();
-            String imageUrl = channelMap.get("image").toString();
-            Channel channel = new Channel(channelId, channelName, tagline, imageUrl);
+            var imageobject = channelMap.get("image");
+            String imageUrl = "";
+            Channel channel = null;
+            if (imageobject != null){
+                imageUrl=imageobject.toString();
+                channel = new Channel(channelId, channelName, tagline, imageUrl);
+            } else {
+                channel = new Channel(channelId, channelName, tagline);
+            }
             channels.add(channel);
         }
 

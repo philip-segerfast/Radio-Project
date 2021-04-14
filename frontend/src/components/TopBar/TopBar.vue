@@ -1,25 +1,25 @@
 <template>
   <div>
-  <nav id="topbar-container">
-  <ul>
-<li class="topbar-item-1">
-  <router-link to="/" tag="button" class="homebtn">Sveriges Radio </router-link>
-  </li>
-  <li class="topbar-item-2">
-    <ChannelCarousel />
-  </li>
-  </ul>
-  <div class="topbar-item-3">
-    <LoginRegister />
-  </div>
-  <div>
+    <nav id="topbar-container">
+      <ul>
+        <li class="topbar-item-1">
+          <router-link to="/" tag="button" class="homebtn">Sveriges Radio </router-link>
+        </li>
+        <li class="topbar-item-2">
+          <ChannelCarousel />
+        </li>
+      </ul>
+    </nav>
+    <div class="topbar-item-3">
+      <LoginRegister />
+    </div>
+    <div>
       <SearchBar />
-      </div>
-</nav>
+    </div>
+    <nav>
+      <router-link to="/login" tag="button">Sign in</router-link>
+    </nav>
   </div>
-  <nav>
-    <router-link to="/login" tag="button">Sign in</router-link>
-  </nav>
 </template>
 
 <script>

@@ -20,6 +20,12 @@ export default {
       programs: ''
     }
   },
+  watch: {
+    $route (to, from) {
+      this.fetchChannel()
+      this.fetchPrograms()
+    }
+  },
   components: {
     ChannelInfo,
     ProgramList

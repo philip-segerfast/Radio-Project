@@ -1,7 +1,7 @@
 <template>
   <div id="app-container">
     <div class="topbar-grid">
-    <TopBar />
+      <TopBar />
     </div>
     <div class="program-grid">
       <router-view />

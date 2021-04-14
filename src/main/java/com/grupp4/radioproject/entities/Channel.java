@@ -34,6 +34,10 @@ public class Channel {
         this(id, channelName, "ej tillgängligt", "https://nordeniskolen.org/media/1886/radio-norden-v2.gif");
     }
 
+    public Channel(long id, String channelName, String tagline) {
+        this(id, channelName, tagline, "https://nordeniskolen.org/media/1886/radio-norden-v2.gif");
+    }
+
     public Channel(long id, String name, String tagline, String imageUrl) {
         this.id = id;
         this.name = name;
