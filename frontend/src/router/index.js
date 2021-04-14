@@ -6,6 +6,7 @@ import SearchView from '../views/SearchView'
 import Login from '../views/Login.vue'
 import ProgramCategories from '../views/ProgramCategories.vue'
 import Tableau from '../views/Tableau'
+import Favourites from '../views/Favourites.vue'
 
 const routes = [
   {
@@ -42,6 +43,11 @@ const routes = [
     path: '/tableau/:channelId',
     name: 'Tableau',
     component: Tableau
+  },
+  {
+    path: '/favourites',
+    name: 'Favourites',
+    component: Favourites
   }
 ]
 
