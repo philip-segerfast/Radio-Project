@@ -1,7 +1,7 @@
 <template>
   <div>
-    <router-link to="/login" v-if="loggedInUser==null" tag="button">Sign in</router-link>
-    <router-link to="/" @click="logout" v-if="loggedInUser==user" tag="button">Sign out</router-link>
+    <router-link to="/login" class="button-login">Sign in</router-link>
+    <router-link to="/" class="button-logout">Sign out</router-link>
   </div>
 </template>
 
@@ -26,6 +26,18 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.button-login {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px;
+  display: flex;
+}
+.button-logout {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px;
+  display: flex;
+}
 
 </style>

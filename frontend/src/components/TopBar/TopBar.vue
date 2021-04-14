@@ -5,15 +5,11 @@
         <li class="topbar-item-1">
           <router-link to="/" tag="button" class="homebtn">Sveriges Radio </router-link>
           <router-link to="/programs/category" tag="button" class="categories">Kategorier </router-link>
-        </li>
-        <li class="topbar-item-2">
           <ChannelCarousel />
         </li>
+        <LoginRegister />
       </ul>
     </nav>
-    <div class="topbar-item-3">
-      <LoginRegister />
-    </div>
     <div>
       <SearchBar />
     </div>
@@ -58,13 +54,13 @@ ul li a {
   padding: 1.6 rem;
 }
 #topbar-container {
-  background:brown;
   display: flex;
   height: 100px;
   }
 .topbar-item-1 {
  justify-self: auto;
 }
+
 .container {
   display: grid;
   grid-template-columns: 30fr 20fr;
