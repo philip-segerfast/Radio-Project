@@ -18,40 +18,20 @@ public class ScheduleEpisode {
     private String starttimeutc;
 
     @ManyToOne
+    @JsonIgnoreProperties({"programs", "tagline"})
     Channel channel;
 
     @ManyToOne
+    @JsonIgnoreProperties({"channel", "description", "programCategory"})
     Program program;
 
-    public ScheduleEpisode() {
-    }
-
-    public ScheduleEpisode(String title, String description, Channel channel, Program program) {
-        this.title = title;
-        this.description = description;
-        this.channel = channel;
-        this.program = program;
-    }
+    public ScheduleEpisode() { }
 
     public ScheduleEpisode(long episodeId, String title, String description, String starttimeutc, Channel channel, Program program) {
         this.episodeId = episodeId;
         this.title = title;
         this.description = description;
         this.starttimeutc = starttimeutc;
-        this.channel = channel;
-        this.program = program;
-    }
-
-    public ScheduleEpisode(long episodeId, String title, String description) {
-        this.episodeId = episodeId;
-        this.title = title;
-        this.description = description;
-    }
-
-    public ScheduleEpisode(long episodeId, String title, String description, Channel channel, Program program) {
-        this.episodeId = episodeId;
-        this.title = title;
-        this.description = description;
         this.channel = channel;
         this.program = program;
     }
