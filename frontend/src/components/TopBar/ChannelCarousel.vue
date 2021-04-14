@@ -1,10 +1,10 @@
 <template>
-<div id="channels" class="dropdown">
-  <button class="dropbtn">Dropdown</button>
-  <div class="dropdown-content">
-    <a href="#" v-for="(channel, i) in channels" :key="i" v-on:click="this.$router.push('/programs/'+ channel.id)">{{ channel.name }}</a>
-</div>
-</div>
+  <div id="channels" class="dropdown">
+    <button class="dropbtn">Dropdown</button>
+    <div class="dropdown-content">
+      <div v-for="channel in channels" :key="channel.id" v-on:click="goToChannel(channel)">{{ channel.name }}</div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -21,6 +21,12 @@ export default {
     const channelsResponse = await fetch('/rest/channels')
     this.channels = await channelsResponse.json()
     console.log(this.channels)
+  },
+  methods: {
+    goToChannel (channel) {
+      this.$router.push('/channels/' + channel.id)
+      this.$forceUpdate()
+    }
   }
 }
 </script>
