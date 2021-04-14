@@ -21,7 +21,7 @@ export default {
     }
   },
   watch: {
-    $route (to, from) {
+    $route () {
       this.fetchChannel()
       this.fetchPrograms()
     }
@@ -31,8 +31,7 @@ export default {
     ProgramList
   },
   async mounted () {
-    await this.fetchChannel()
-    await this.fetchPrograms()
+    await this.fetchAll()
   },
   methods: {
     async fetchChannel () {
@@ -44,6 +43,10 @@ export default {
       const channelId = this.$route.params.channelId
       const programsResponse = await fetch(`/rest/programs/channel/${channelId}`)
       this.programs = await programsResponse.json()
+    },
+    async fetchAll () {
+      await this.fetchChannel()
+      await this.fetchPrograms()
     }
   }
 }

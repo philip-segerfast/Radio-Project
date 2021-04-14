@@ -13,7 +13,7 @@
 
       <label for="psw"><b>Password</b></label>
       <input v-model="password" type="password" placeholder="Enter Password" name="psw" required>
-      <button @click="login">Login</button>
+      <button type="submit">Login</button>
       <button @click="register">Register</button>
       </div>
       <div class="container" style="background-color:#f1f1f1">
@@ -50,12 +50,13 @@ export default {
       // remove logged in user from store
       this.$store.commit('setLoggedInUser', null)
     },
+
     async login () {
       const credentials = 'username=' +
         encodeURIComponent(this.username) +
         '&password=' +
         encodeURIComponent(this.password)
-      this.$router.push('/')
+
       const response = await fetch('/login', {
         method: 'POST',
         headers: {
@@ -65,13 +66,12 @@ export default {
         body: credentials
       })
 
-      let user = await fetch('/auth/whoami')
-      console.log(user)
-
       try {
-        user = await user.json()
-        this.$store.commit('setLoggedInUser', user)
+        const response = await fetch('/auth/whoami')
+        const user = await response.json()
         console.log(user)
+        this.$store.commit('setLoggedInUser', user)
+        alert('Inloggad som: ' + user.username)
       } catch {
         alert('Wrong username/password')
       }

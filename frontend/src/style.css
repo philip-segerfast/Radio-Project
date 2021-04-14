@@ -133,6 +133,18 @@ body {
 	transition: background-color 0.1s;
 }
 
+.favourite {
+  background-color: goldenrod;
+}
+
+.favourite:active {
+  background-color: rgb(184, 140, 28);
+}
+
+.favourite:hover {
+  background-color: rgb(158, 120, 24);
+}
+
 .info-header-container .tmp-icon:hover {
   background-color: var(--background-brightest-hover);
 }

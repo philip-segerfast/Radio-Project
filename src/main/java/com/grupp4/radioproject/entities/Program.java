@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import static com.grupp4.radioproject.api.ApiCommon.*;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "programs")
@@ -33,6 +32,8 @@ public class Program {
     @Transient
     private String programImage;
 
+    public Program() { }
+
     public Program(long id, String name) {
         this(id, name, null, "Unavailable");
     }
@@ -49,8 +50,6 @@ public class Program {
         this.programCategory = programCategory;
         this.programImage = programImage;
     }
-
-    public Program() { }
 
     @JsonProperty
     public long getId() {

@@ -26,7 +26,6 @@ export default {
       const response = await fetch('/rest/episodes/' + programId)
       const episodes = await response.json()
       this.episodes = episodes
-      console.log(episodes)
     } catch {
       alert('Ogiltigt program. Prova med ett annat ID.')
     }

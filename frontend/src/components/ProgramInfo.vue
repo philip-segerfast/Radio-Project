@@ -9,8 +9,13 @@
         <div class="share tmp-icon" v-on:click="copyToClipboard">
           Share
         </div>
-        <div class="favourite tmp-icon">
-          Favourite
+        <div v-if="isLoggedIn">
+          <div v-if="!program.isFavourite" class="tmp-icon" v-on:click="this.$emit('favourite')">
+            Favourite
+          </div>
+          <div v-else class="tmp-icon" v-on:click="this.$emit('unFavourite')">
+            Unfavourite
+          </div>
         </div>
       </div>
     </div>
@@ -24,6 +29,10 @@
 export default {
   props: ['program'],
 
+  mounted () {
+    console.log(this.program)
+  },
+
   methods: {
     copyToClipboard (text) {
       var inputc = document.body.appendChild(document.createElement('input'))
@@ -33,6 +42,12 @@ export default {
       document.execCommand('copy')
       inputc.parentNode.removeChild(inputc)
       alert('URL Copied.')
+    }
+  },
+
+  computed: {
+    isLoggedIn () {
+      return this.$store.state.loggedInUser != null
     }
   }
 }

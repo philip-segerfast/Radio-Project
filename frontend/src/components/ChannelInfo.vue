@@ -12,9 +12,6 @@
         <div class="tmp-icon" v-on:click="copyToClipboard">
           Share
         </div>
-        <div class="tmp-icon">
-          Favourite
-        </div>
       </div>
     </div>
     <div class="right-box">

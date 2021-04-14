@@ -10,6 +10,7 @@ import com.grupp4.radioproject.repositories.UserRepo;
 import com.grupp4.radioproject.utils.ConsoleColor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceUtils;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 import static com.grupp4.radioproject.utils.PrintUtils.*;
 
@@ -48,14 +50,19 @@ public class UserService {
     DataSource dataSource;
 
     /**
-     * @return The logged-in user
+     * @return The logged-in user or null if not logged in.
      */
     public User whoAmI() {
         // SecurityContextHolder.getContext() taps into the current session
         // getAuthentication() returns the current logged in user
         // getName() returns the logged in username (email in this case)
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        return userRepo.findByUsername(username);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if(authentication != null) {
+            String username = authentication.getName();
+            return userRepo.findByUsername(username);
+        }
+
+        return null;
     }
 
     public User register(User user) {
@@ -124,9 +131,11 @@ public class UserService {
         String loggedUserName = loggedUser.getUsername();
 
         Program program = programService.getProgramById(programId);
-        if(program != null) { ///////////////////////////////// SKA INTE DETTA VARA if(program == null)?
+        if(program != null) {
             channelService.registerChannel(program.getChannel());
-            programCategoryService.registerProgramCategory(program.getProgramCategory());
+            if(program.getProgramCategory() != null) {
+                programCategoryService.registerProgramCategory(program.getProgramCategory());
+            }
             programService.registerProgram(program);
             return registerFavouriteProgram(program, loggedUser);
         } else {
@@ -203,5 +212,26 @@ public class UserService {
     public List<Episode> getEpisodeFavourites() {
         User loggedUser = whoAmI();
         return episodeService.feedEpisodeInfo(loggedUser.getEpisodeFavourites());
+    }
+
+    public boolean isProgramFavourite(long id) {
+        List<Program> favourites = getProgramFavourites();
+        for(Program program : favourites) {
+            if(program.getId() == id) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean removeProgramFavourite(long id) {
+        User loggedUser = whoAmI();
+        List<Program> favourites = loggedUser.getProgramFavourites();
+
+        boolean wasRemoved = favourites.removeIf(program -> program.getId() == id);
+
+        userRepo.save(loggedUser);
+        printDebug("Removed: " + wasRemoved);
+        return wasRemoved;
     }
 }

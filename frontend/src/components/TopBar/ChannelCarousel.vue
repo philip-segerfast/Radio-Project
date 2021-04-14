@@ -20,7 +20,6 @@ export default {
     const channelId = this.$route.params.channelId
     const channelsResponse = await fetch('/rest/channels')
     this.channels = await channelsResponse.json()
-    console.log(this.channels)
   },
   methods: {
     goToChannel (channel) {
