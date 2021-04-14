@@ -77,6 +77,29 @@ body {
 	border: 1px solid black;
 }
 
+/* --------------------------------- TOPBAR --------------------------------- */
+
+.top-button {
+  height: fit-content;
+  width: fit-content;
+  background-color: var(--background-brightest);
+  color: black;
+  text-decoration: none;
+  padding: 10px;
+  margin-right: 10px;
+  transition: background-color 0.2s;
+  border-radius: var(--small-border-radius);
+  border: 1px solid black;
+}
+
+.top-button:hover {
+  background-color: var(--background-brightest-hover);
+}
+
+.top-button:active {
+  background-color: var(--background-brightest-active);
+}
+
 /* --------------------------------- INFO-HEADER --------------------------------- */
 
 .info-header-container {

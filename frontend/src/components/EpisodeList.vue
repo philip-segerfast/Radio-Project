@@ -8,11 +8,13 @@
           <br> {{ episode.publishdateutc }}
           <br> {{ episode.url }}
         </div>
-        <div class="favourite tmp-icon" v-if="episode.isFavourite" v-on:click='unFavouriteEpisode(episode.episodeId)'>
-          Unfavourite
-        </div>
-        <div class="tmp-icon" v-else v-on:click='favouriteEpisode(episode.episodeId)'>
-          Favourite
+        <div v-if="isLoggedIn">
+          <div class="favourite tmp-icon" v-if="episode.isFavourite" v-on:click='unFavouriteEpisode(episode.episodeId)'>
+            Unfavourite
+          </div>
+          <div class="tmp-icon" v-else v-on:click='favouriteEpisode(episode.episodeId)'>
+            Favourite
+          </div>
         </div>
       </li>
     </ul>
@@ -53,8 +55,6 @@ export default {
         const isFavourite = favouriteInfo.isFavourite
         this.episodes[i].isFavourite = isFavourite
         console.log(this.episodes[i])
-      } else {
-        alert('Error: ' + favouriteInfo.error)
       }
     }
   },
@@ -100,6 +100,12 @@ export default {
           return episode
         }
       }
+    }
+  },
+
+  computed: {
+    isLoggedIn () {
+      return this.$store.state.loggedInUser != null
     }
   }
 }

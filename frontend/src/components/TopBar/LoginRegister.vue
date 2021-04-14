@@ -1,8 +1,6 @@
 <template>
-  <div>
-    <router-link to="/login" class="button-login">Sign in</router-link>
-    <router-link to="/" class="button-logout">Sign out</router-link>
-  </div>
+  <router-link to="/login" v-if="!isLoggedIn" class="top-button">Sign in</router-link>
+  <router-link to="/" @click="logout" v-else class="top-button">Sign out (logged in as {{ loggedInUser.username }})</router-link>
 </template>
 
 <script>
@@ -21,23 +19,17 @@ export default {
 
       // remove logged in user from store
       this.$store.commit('setLoggedInUser', null)
+
+      alert('You signed out')
+    }
+  },
+  computed: {
+    isLoggedIn () {
+      return this.$store.state.loggedInUser != null
+    },
+    loggedInUser () {
+      return this.$store.state.loggedInUser
     }
   }
 }
 </script>
-
-<style scoped>
-.button-login {
-  background-color: #4CAF50;
-  color: white;
-  padding: 16px;
-  display: flex;
-}
-.button-logout {
-  background-color: #4CAF50;
-  color: white;
-  padding: 16px;
-  display: flex;
-}
-
-</style>

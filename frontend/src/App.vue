@@ -1,10 +1,8 @@
 <template>
   <div id="app-container">
-    <div class="topbar-grid">
-      <TopBar />
-    </div>
+    <TopBar />
     <div class="program-grid">
-      <router-view />
+    <router-view />
     </div>
   </div>
 </template>
@@ -41,7 +39,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 1% 20%;
+  padding: 1% 20vw;
   background-color: var(--main-background-color);
   min-height: 100vh;
   font-family: Avenir, Helvetica, Arial, sans-serif;
