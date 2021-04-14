@@ -2,7 +2,7 @@
   <div>
       <ul>
           <li v-for="(program, i) in programs" :key="i">
-          <b v-on:click="this.$router.push('/program/' + program.id)">  {{ program.name }} </b>
+          <b id="search-results" v-on:click="this.$router.push('/program/' + program.id)">  {{ program.name }} </b>
           <br> {{ program.description }}
           <br> {{ program.channel.name }}
           </li>
@@ -37,5 +37,8 @@ export default {
 </script>
 
 <style>
-
+#search-results {
+  cursor: pointer;
+  text-decoration: underline;
+}
 </style>

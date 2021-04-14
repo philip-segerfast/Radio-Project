@@ -10,7 +10,8 @@
   </div>
       <ul>
           <li v-for="(program, i) in programs" :key="i">
-              {{ program.name }} </li>
+            <b id="program-on-categories" v-on:click="this.$router.push('/program/' + program.id)">  {{ program.name }} </b>
+              </li>
       </ul>
   </div>
 </template>
@@ -47,5 +48,8 @@ export default {
 </script>
 
 <style>
-
+#program-on-categories {
+  cursor: pointer;
+  text-decoration: underline;
+}
 </style>
