@@ -1,5 +1,5 @@
 <template>
-  <div id="episode-list-container" class="selectable">Nästa Avsnitt
+  <div id="episode-list-container" class="selectable">Kommande sändningar
     <ul>
       <li v-for="(episode, i) in episodes" :key="i"> <b> {{ episode.title }} </b>
         <br> {{ episode.description }}

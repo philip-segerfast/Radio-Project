@@ -123,16 +123,6 @@ body {
   justify-content: flex-end;
 }
 
-.info-header-container .tmp-icon {
-  background-color: var(--background-darker);
-  margin-left: 5px;
-  padding: 3px;
-  border-radius: 5px;
-  cursor: pointer;
-  border: 1px solid black;
-	transition: background-color 0.1s;
-}
-
 .favourite {
   background-color: goldenrod;
 }
@@ -145,11 +135,22 @@ body {
   background-color: rgb(158, 120, 24);
 }
 
-.info-header-container .tmp-icon:hover {
+.tmp-icon {
+  background-color: var(--background-darker);
+  margin-left: 5px;
+  padding: 3px;
+  border-radius: 5px;
+  cursor: pointer;
+  border: 1px solid black;
+	transition: background-color 0.1s;
+  width: fit-content;
+}
+
+.tmp-icon:hover {
   background-color: var(--background-brightest-hover);
 }
 
-.info-header-container .tmp-icon:active {
+.tmp-icon:active {
   background-color: var(--background-brightest-active);
 }
 

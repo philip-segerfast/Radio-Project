@@ -23,12 +23,6 @@ export default {
   },
 
   async mounted () {
-    this.$store.subscribe((setLoggedInUser, state) => {
-      if (setLoggedInUser.type === 'CHANGEAPP') {
-        this.fetchUsers()
-      }
-    })
-
     const programId = this.$route.params.programId
     try {
       const response = await fetch('/rest/programs/' + programId)

@@ -231,7 +231,28 @@ public class UserService {
         boolean wasRemoved = favourites.removeIf(program -> program.getId() == id);
 
         userRepo.save(loggedUser);
-        printDebug("Removed: " + wasRemoved);
+        printDebug("Removed program favourite: " + wasRemoved);
         return wasRemoved;
+    }
+
+    public boolean removeEpisodeFavourite(long id) {
+        User loggedUser = whoAmI();
+        List<Episode> favourites = loggedUser.getEpisodeFavourites();
+
+        boolean wasRemoved = favourites.removeIf(episode -> episode.getEpisodeId() == id);
+
+        userRepo.save(loggedUser);
+        printDebug("Removed episode favourite: " + wasRemoved);
+        return wasRemoved;
+    }
+
+    public boolean isEpisodeFavourite(long id) {
+        List<Episode> favourites = getEpisodeFavourites();
+        for(Episode episode : favourites) {
+            if(episode.getEpisodeId() == id) {
+                return true;
+            }
+        }
+        return false;
     }
 }

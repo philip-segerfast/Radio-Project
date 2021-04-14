@@ -12,6 +12,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import static com.grupp4.radioproject.utils.PrintUtils.printDebug;
+
 @RestController
 public class UserController {
 
@@ -63,7 +65,6 @@ public class UserController {
 
     @PutMapping("/rest/user/add-program-favourite/{id}")
     public Map<String, ?> addProgramFavourite(@PathVariable long id) {
-
         if(userService.whoAmI() != null) {
             return Collections.singletonMap("success", userService.addProgramFavourite(id));
         }
@@ -89,13 +90,35 @@ public class UserController {
     }
 
     @PutMapping("/rest/user/add-episode-favourite/{id}")
-    public boolean addEpisodeFavourite(@PathVariable long id) {
-        return userService.addEpisodeFavourite(id);
+    public Map<String, ?> addEpisodeFavourite(@PathVariable long id) {
+        if(userService.whoAmI() != null) {
+            return Collections.singletonMap("success", userService.addEpisodeFavourite(id));
+        }
+        return Collections.singletonMap("error", "Could not add episode as favourite. Maybe it's already a favourite?");
+    }
+
+    @PutMapping("/rest/user/remove-episode-favourite/{id}")
+    public Map<String, ?> removeEpisodeFavourite(@PathVariable long id) {
+
+        if(userService.whoAmI() != null) {
+            return Collections.singletonMap("success", userService.removeEpisodeFavourite(id));
+        }
+        return Collections.singletonMap("error", "Could not add episode as favourite. Maybe it's already a favourite?");
     }
 
     @GetMapping("/rest/episode-favourites")
     public List<Episode> getEpisodeFavourites() {
         return userService.getEpisodeFavourites();
+    }
+
+    @GetMapping("/rest/is-episode-favourite/{id}")
+    public Map<String, ?> isEpisodeFavourite(@PathVariable long id) {
+        if(userService.whoAmI() != null) {
+            boolean isEpisodeFavourite = userService.isEpisodeFavourite(id);
+            printDebug("" + isEpisodeFavourite);
+            return Collections.singletonMap("isFavourite", isEpisodeFavourite);
+        }
+        return Collections.singletonMap("error", "You must be logged in to get favourites.");
     }
 
     /** Get boolean of wether the episode with the ID is a favourite of the currently logged in user */
