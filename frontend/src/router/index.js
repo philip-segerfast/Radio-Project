@@ -6,7 +6,6 @@ import SearchView from '../views/SearchView'
 import Login from '../views/Login.vue'
 import ProgramCategories from '../views/ProgramCategories.vue'
 import Tableau from '../views/Tableau'
-import TableauByDay from '../views/TableauByDay.vue'
 
 const routes = [
   {
@@ -43,11 +42,6 @@ const routes = [
     path: '/tableau/:channelId',
     name: 'Tableau',
     component: Tableau
-  },
-  {
-    path: '/tableau/:channelId/:date',
-    name: 'TableauByDay',
-    component: TableauByDay
   }
 ]
 
