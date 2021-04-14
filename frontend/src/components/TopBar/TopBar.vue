@@ -3,8 +3,9 @@
     <nav id="topbar-container">
       <ul>
         <li class="topbar-item-1">
-          <router-link to="/" tag="button" class="homebtn">Sveriges Radio </router-link>
-          <router-link to="/programs/category" tag="button" class="categories">Kategorier </router-link>
+          <router-link to="/" tag="button" class="homebtn"> Sveriges Radio </router-link>
+          <router-link to="/programs/category" tag="button" class="categories"> Kategorier </router-link>
+          <router-link to="/favourites" tag="button" class="favourites"> Favoriter </router-link>
           <ChannelCarousel />
         </li>
         <LoginRegister />
@@ -74,6 +75,14 @@ ul li a {
   cursor: pointer;
 }
 .categories {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+.favourites {
   background-color: #4CAF50;
   color: white;
   padding: 16px;
