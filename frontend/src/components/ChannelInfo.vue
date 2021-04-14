@@ -9,7 +9,7 @@
         <div class="tmp-icon" v-on:click="goToTableau">
           Go to tableau
         </div>
-        <div class="tmp-icon">
+        <div class="tmp-icon" v-on:click="copyToClipboard">
           Share
         </div>
         <div class="tmp-icon">
@@ -34,6 +34,15 @@ export default {
   methods: {
     goToTableau () {
       this.$router.push('/tableau/' + this.channel.id)
+    },
+    copyToClipboard (text) {
+      var inputc = document.body.appendChild(document.createElement('input'))
+      inputc.value = window.location.href
+      inputc.focus()
+      inputc.select()
+      document.execCommand('copy')
+      inputc.parentNode.removeChild(inputc)
+      alert('URL Copied.')
     }
   }
 }

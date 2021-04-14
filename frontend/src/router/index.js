@@ -39,7 +39,7 @@ const routes = [
     component: ProgramCategories
   },
   {
-    path: '/channel/:channelId/tableau',
+    path: '/tableau/:channelId',
     name: 'Tableau',
     component: Tableau
   }
