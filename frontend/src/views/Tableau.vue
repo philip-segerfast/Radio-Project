@@ -8,7 +8,7 @@
     </div>
     <div id="tableau-list">
     <ul>
-      <li v-for="(program, i) in programs" :key="i"> <b> {{ program.title }} </b>
+      <li class="selectable" v-for="(program, i) in programs" :key="i"> <b> {{ program.title }} </b>
         <br> {{ program.description }}
         <br> {{ program.starttimeutc }}
         </li>
