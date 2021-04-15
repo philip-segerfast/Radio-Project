@@ -2,7 +2,7 @@
   <div class="dropdown">
     <div class="top-button">Kanaler</div>
     <div class="dropdown-content">
-      <div v-for="channel in channels" :key="channel.id" v-on:click="goToChannel(channel)">{{ channel.name }}</div>
+      <div class="channel-item" v-for="channel in channels" :key="channel.id" v-on:click="goToChannel(channel)">{{ channel.name }}</div>
     </div>
   </div>
 </template>
@@ -31,6 +31,11 @@ export default {
 </script>
 
 <style>
+.channel-item:hover {
+  background-color: gainsboro;
+  cursor: pointer;
+}
+
 /* Style The Dropdown Button */
 .dropbtn {
   background-color: #4CAF50;
@@ -45,6 +50,7 @@ export default {
 .dropdown {
   position: relative;
   display: inline-block;
+  cursor: pointer;
 }
 
 /* Dropdown Content (Hidden by Default) */
@@ -55,6 +61,8 @@ export default {
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
+  max-height: 50vh;
+  overflow: auto;
 }
 
 /* Links inside the dropdown */
