@@ -1,8 +1,7 @@
 <template>
   <div class="home">
-    <p></p>
+    <h1>Välkommen! Känn dig som hemma...</h1>
   </div>
-
 </template>
 
 <script>
