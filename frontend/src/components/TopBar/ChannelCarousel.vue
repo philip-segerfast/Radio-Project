@@ -31,9 +31,18 @@ export default {
 </script>
 
 <style>
+.channel-item {
+  background-color: var(--background-brightest);
+  transition: background-color 0.1s;
+}
+
 .channel-item:hover {
-  background-color: gainsboro;
+  background-color: var(--background-brightest-hover);
   cursor: pointer;
+}
+
+.channel-item:active {
+  background-color: var(--background-brightest-active);
 }
 
 /* Style The Dropdown Button */

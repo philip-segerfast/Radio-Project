@@ -37,6 +37,7 @@ export default {
   height: 100%;
   border: 1px solid black;
   padding-left: 5px;
+  background-color: var(--background-brightest);
 }
 
 #search-button {
