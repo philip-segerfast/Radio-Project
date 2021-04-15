@@ -73,7 +73,7 @@ export default {
         this.$store.commit('setLoggedInUser', user)
         alert('Inloggad som: ' + user.username)
       } catch {
-        alert('Wrong username/password')
+        console.log('Wrong username/password')
       }
     },
     async register () {
