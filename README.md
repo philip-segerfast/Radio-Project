@@ -14,6 +14,7 @@ A search function for programs is available too.
 * Spring JPA
 * Spring Security (for user management)
 * Maven
+* SQLite
 
 ### Frontend
 * Vue.js (Javascript, Node.js)
