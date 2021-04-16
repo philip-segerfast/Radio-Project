@@ -7,7 +7,7 @@ The task was to fulfill a number of user stories in any way we liked. They were 
 We were also expected to have a login/register feature along with saving personal favourite programs and episodes.
 A search function for programs is available too. 
 
-## Used technologies:
+## Used technologies
 ### Backend
 * Java
 * Spring Boot
