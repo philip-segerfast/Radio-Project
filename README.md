@@ -30,9 +30,9 @@ A search function for programs is available too.
 * GitKraken
 
 ## Images
-### List all programs under a channel (not logged in)
+List all programs under a channel (not logged in)
 ![bild](https://user-images.githubusercontent.com/23383100/115075552-87f6a400-9efb-11eb-9259-2b013404db5f.png)
-### List all episodes under a program (logged in)
+List all episodes under a program (logged in, note the favourited items)
 ![bild](https://user-images.githubusercontent.com/23383100/115081528-b4fb8480-9f04-11eb-9917-e2eedf307f19.png)
 
 ## How to use it
@@ -46,9 +46,3 @@ A search function for programs is available too.
 3. Run `npm i` to install dependencies
 4. Run `npm run serve` to start Node.js (Vue CLI) server
 5. Navigate to `localhost:3000` using a web browser
-
-[//]: # (What the project does)
-[//]: # (Why the project is useful)
-[//]: # (How users can get started with the project)
-[//]: # (Where users can get help with your project)
-[//]: # (Who maintains and contributes to the project)
