@@ -42,7 +42,7 @@ A search function for programs is available too.
 1. Install Node.js
 2. Open `/frontend`-folder with a terminal
 3. Run `npm i` to install dependencies
-4. Run `npm run serve` to start Node.js server
+4. Run `npm run serve` to start Node.js (Vue CLI) server
 5. Navigate to `localhost:3000` using a web browser
 
 [//]: # (What the project does)
