@@ -49,4 +49,4 @@ List all episodes under a program (logged in, note the favourited items)
 5. Navigate to `localhost:3000` using a web browser
 
 
-*Please note that this project had a very limited time limit and that there are plenty of bugs. Also note that all of the members still are in the learning stage, some more than others, and that everybody has different experience and skill.*
+*Please note that this project had a very limited time limit and that there are plenty of bugs. Also note that all of the members still are in the learning stage, some more than others, and that everybody has (very) different experience and skill.*
