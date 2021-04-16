@@ -30,7 +30,9 @@ A search function for programs is available too.
 * GitKraken
 
 ## Images
+### List all programs under a channel (not logged in)
 ![bild](https://user-images.githubusercontent.com/23383100/115075552-87f6a400-9efb-11eb-9259-2b013404db5f.png)
+### List all episodes under a program (logged in)
 ![bild](https://user-images.githubusercontent.com/23383100/115081528-b4fb8480-9f04-11eb-9917-e2eedf307f19.png)
 
 ## How to use it
