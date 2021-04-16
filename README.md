@@ -17,7 +17,7 @@ A search function for programs is available too.
 * SQLite
 
 ### Frontend
-* Vue.js, some Vuex, vue router (Javascript, Node.js)
+* Vue.js, some Vuex, Vue Router (Javascript, Node.js)
 * HTML
 * CSS
 
