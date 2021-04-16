@@ -47,3 +47,5 @@ List all episodes under a program (logged in, note the favourited items)
 3. Run `npm i` to install dependencies
 4. Run `npm run serve` to start Node.js (Vue CLI) server
 5. Navigate to `localhost:3000` using a web browser
+
+*Please note that this project had a very limited time limit and that there are plenty of bugs, and that all of the members still are in the learning stage, some more than others.*
